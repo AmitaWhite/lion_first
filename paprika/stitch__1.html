@@ -1,0 +1,381 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Page - Paprika</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .temperature-gradient {
+            background: linear-gradient(90deg, #ffb59a 0%, #ff5a00 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(228, 190, 177, 0.3);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ff5a00",
+                        "surface-tint": "#a83900",
+                        "on-primary-fixed": "#380d00",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "primary": "#a83900",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-fixed": "#ffdbcf",
+                        "primary-fixed-dim": "#ffb59a",
+                        "surface-container": "#f0eded",
+                        "surface": "#fcf9f8",
+                        "tertiary-fixed": "#d1e4ff",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed-dim": "#78dc77",
+                        "on-primary-fixed-variant": "#802900",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "on-secondary-fixed": "#002204",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "tertiary": "#0061a4",
+                        "surface-bright": "#fcf9f8",
+                        "inverse-surface": "#303030",
+                        "on-tertiary-fixed": "#001d36",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-primary-container": "#511700",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "background": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "on-secondary-container": "#00731e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#002c4f",
+                        "on-surface-variant": "#5b4137",
+                        "surface-dim": "#dcd9d9",
+                        "outline-variant": "#e4beb1",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#2196f3",
+                        "surface-container-high": "#eae7e7",
+                        "secondary-container": "#91f78e",
+                        "inverse-primary": "#ffb59a",
+                        "secondary-fixed": "#94f990",
+                        "secondary": "#006e1c",
+                        "outline": "#907065"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "gutter": "16px",
+                        "xl": "64px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "container-margin": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Noto Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Noto Sans"],
+                        "body-sm": ["Noto Sans"],
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-dim shadow-sm docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-container-margin max-w-7xl mx-auto h-20 gap-md">
+<div class="flex items-center gap-lg">
+<a class="text-headline-lg font-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight" href="#">Paprika</a>
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Categories</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">My Page</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Chat</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary w-64 text-body-sm font-body-sm" placeholder="Search items..." type="text">
+</div>
+<button class="bg-primary-container text-on-primary font-bold px-6 py-2 rounded-full hover:scale-95 transition-transform active:scale-90 font-label-md text-label-md">
+                    Sell
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-container-margin py-md grid grid-cols-1 lg:grid-cols-12 gap-md items-start">
+<!-- Sidebar Navigation (Desktop) -->
+<aside class="hidden lg:flex lg:col-span-3 flex-col gap-sm">
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-sm px-2">Account</h3>
+<nav class="flex flex-col">
+<a class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container text-primary font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-md text-label-md">My Page</span>
+</a>
+
+<a class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="font-label-md text-label-md">Address management</span>
+</a>
+<a class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Account settings</span>
+</a>
+<div class="h-[1px] bg-outline-variant my-xs mx-sm"></div>
+<a class="flex items-center gap-sm p-sm rounded-lg hover:bg-surface-container text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-label-md text-label-md">Notice/Support</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Profile Canvas -->
+<div class="lg:col-span-9 flex flex-col gap-md">
+<!-- User Profile Bento Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Avatar & Identity Card -->
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl p-lg shadow-sm flex flex-col sm:flex-row items-center gap-lg relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="relative">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a friendly young woman with a warm smile, wearing a modern terracotta orange sweater that matches the Paprika brand colors. She has a clean, natural look, and the background is a soft, out-of-focus modern minimalist interior with bright natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx-0z1y1vCv0krU-SGxHDjuxupQlKaTagBGlN--ju9OJHdAwY-SBxalGPq8VbAX1VOts-db-3-QfHG8Y6ZluCOPCuVEW49MYlIOqezWt8X2DlOpiat-fKLeNPmo6agnBpV0Vu-mFhFk2hvXPI5z96-K0Ta400b4tg2sLQEtiseWAWY40Fgxcp-Gtzz5khqiUoIIEDgi4J720PYqEqQCp412LdmHNG_I6VO7N_pWj5XhVa64_o6kGDPFkCqjf2sRLhHkdvNe9M5cCI">
+</div>
+<button class="absolute bottom-1 right-1 bg-white p-2 rounded-full shadow-md text-primary hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+<div class="flex-grow text-center sm:text-left z-10">
+<h1 class="font-headline-lg text-headline-lg mb-xs">Sarah Jenkins</h1>
+<p class="text-on-surface-variant font-body-md mb-sm flex items-center justify-center sm:justify-start gap-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                            Mapo-gu, Seoul
+                        </p>
+<div class="flex gap-sm justify-center sm:justify-start">
+<div class="bg-surface-container px-4 py-2 rounded-lg">
+<p class="text-label-sm font-label-sm text-on-surface-variant">Followers</p>
+<p class="font-headline-md text-headline-md">124</p>
+</div>
+<div class="bg-surface-container px-4 py-2 rounded-lg">
+<p class="text-label-sm font-label-sm text-on-surface-variant">Following</p>
+<p class="font-headline-md text-headline-md">89</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Manner Temperature Card -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-sm flex flex-col justify-between items-center text-center">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-xs flex items-center gap-xs justify-center">
+                            Manner Temperature
+                            <span class="material-symbols-outlined text-[16px] text-primary" data-icon="help">help</span>
+</h3>
+<div class="text-[40px] font-bold text-primary tracking-tighter leading-none mb-sm">38.5°C</div>
+</div>
+<div class="w-full">
+<div class="w-full bg-surface-container h-3 rounded-full overflow-hidden mb-xs">
+<div class="h-full temperature-gradient" style="width: 38.5%;"></div>
+</div>
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span class="">0°C</span>
+<span class="">First Step</span>
+<span class="">100°C</span>
+</div>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-sm">You are in the top 15% of polite sellers in Mapo-gu!</p>
+</div>
+</section>
+<!-- Transaction Tabs -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="border-b border-outline-variant px-md overflow-x-auto">
+<div class="flex items-center gap-lg min-w-max">
+<button class="py-md px-2 border-b-4 border-primary text-primary font-bold transition-all font-label-md text-label-md" id="tab-selling">Selling</button>
+<button class="py-md px-2 border-b-4 border-transparent text-on-surface-variant font-medium hover:text-primary transition-all font-label-md text-label-md" id="tab-buying">Buying</button>
+<button class="py-md px-2 border-b-4 border-transparent text-on-surface-variant font-medium hover:text-primary transition-all font-label-md text-label-md" id="tab-liked">Liked Items</button>
+</div>
+</div>
+<div class="p-md">
+<!-- Selling Sub-tabs -->
+<div class="flex gap-sm mb-md">
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-full font-label-sm text-label-sm">Active (3)</button>
+<button class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full font-label-sm text-label-sm hover:bg-surface-variant transition-colors">Sold (12)</button>
+</div>
+<!-- List of Items (Asymmetric Grid) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Item Card 1 -->
+<div class="flex gap-sm p-sm rounded-xl border border-outline-variant hover:shadow-md transition-shadow">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A premium mechanical keyboard with pastel keycaps and a custom wooden case, shot from a top-down angle with soft bokeh lighting. The keyboard is aesthetically pleasing and matches a designer's workspace setup. Professional product photography for a high-end second-hand marketplace like Paprika." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDplOzuq76GrxtJaVVKCC8UX_3fQJHSKR0-peoQ2Qd3xSS1XCFEIbXpIThjMq0GItfYsH9BrAt09aWI5g4vUEhATa-YjOFOARsGjMd5Bey8EoTNU0txoZz0XRXEZ-h14bTFSWPN-EzAOMkzhN1m8H1yJAxK7XlnQdo_fulj4PquGu_71b4P3MLNUNX148FAV5Q8tq8kyJtXeZ_kTM5dANtV3Olg9hDLU8pG2QcyiNrWHkM_XASa7FcQJxSSEyB-Aobxru3du51ZM9w">
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-label-md line-clamp-1">Custom Mechanical Keyboard - TKL</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="more_vert">more_vert</span>
+</div>
+<p class="text-on-surface-variant text-body-sm font-body-sm">Mapo-gu • 2 hours ago</p>
+</div>
+<div class="flex items-center justify-between mt-xs">
+<p class="font-bold text-primary">$120.00</p>
+<div class="flex items-center gap-xs text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="favorite">favorite</span> 8
+                                        <span class="material-symbols-outlined text-[14px]" data-icon="chat_bubble">chat_bubble</span> 2
+                                    </div>
+</div>
+</div>
+</div>
+<!-- Item Card 2 -->
+<div class="flex gap-sm p-sm rounded-xl border border-outline-variant hover:shadow-md transition-shadow">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A vintage 35mm film camera in excellent condition, resting on a rustic oak table. The lighting is warm and golden hour-like, highlighting the metallic texture and classic design of the camera. The style is nostalgic yet crisp, perfect for a community-driven marketplace aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYxgVdBuQjde8Srvnic5HLuwQYWDlC-3D5Y4b-SyK3SgFECjRo1j0bAShEESBuX-SpZ8ZTylLWt3Yz498Xl9FmCGx9L7upXqrd1FoiUs6Naq4YpBWmB1JK6-d3Mw1Lshwq2E30rBdfFCMa8w-Cu-Ld-7Im-gUe59V2pwU7dqw3fBCKgkf7qBq9XMBzC_VQPuHH0r9m3Pak4-F9QhZfxCUFJHrmrzxBhbI3h8MgxFv5uYlsUPDmwHPpGRPrb3ur4DxQtrGPJ79-2bo">
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-label-md line-clamp-1">Vintage 35mm Film Camera</h4>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="more_vert">more_vert</span>
+</div>
+<p class="text-on-surface-variant text-body-sm font-body-sm">Mapo-gu • 1 day ago</p>
+</div>
+<div class="flex items-center justify-between mt-xs">
+<div class="flex items-center gap-xs">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">Reserved</span>
+<p class="font-bold text-primary">$85.00</p>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="favorite">favorite</span> 15
+                                        <span class="material-symbols-outlined text-[14px]" data-icon="chat_bubble">chat_bubble</span> 5
+                                    </div>
+</div>
+</div>
+</div>
+<!-- Item Card 3 -->
+<div class="flex gap-sm p-sm rounded-xl border border-outline-variant hover:shadow-md transition-shadow">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 relative">
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-bold text-label-sm">SOLD</div>
+<img class="w-full h-full object-cover" data-alt="A pair of designer white leather sneakers in pristine condition, presented in a minimalist studio setting with sharp shadows and bright, airy lighting. The focus is on the high-quality stitching and modern silhouette of the footwear. Consistent with a premium lifestyle marketplace brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASzOZzGKb2B0LbENtDTaHd4NZSFrK14zy47VoSspmIYZw0_SZxP-HiWmJi1Crm3kDQVILwKu7XOn9WmbhkY4rq8fVpcb3dYaRpFITDMorPI-C91aZDdnFOFzm7wmuFH-BDMhuR_m49lK6nHWrDGwEdBo9HOAQvVmyyYPVpJLoA3uoXINSsmtY07K3xnM7YKKQugu7hwVry_mJqAiC1HOLZMXfbLTAqJuHzRa-_PZRUUPHPvsWlOXo34zz6Hb5OgaBe4RXketsVEmo">
+</div>
+<div class="flex-grow flex flex-col justify-between opacity-60">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-label-md line-clamp-1">Leather Sneakers - Size 9</h4>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span>
+</div>
+<p class="text-on-surface-variant text-body-sm font-body-sm">Mapo-gu • Sold</p>
+</div>
+<div class="flex items-center justify-between mt-xs">
+<p class="font-bold text-primary">$60.00</p>
+<div class="flex items-center gap-xs text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="favorite">favorite</span> 4
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest full-width mt-auto border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-container-margin py-lg max-w-7xl mx-auto gap-md">
+<div class="flex flex-col gap-xs items-center md:items-start">
+<span class="font-headline-md text-headline-md text-on-surface-variant">Paprika</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Paprika Inc. All rights reserved.</p>
+</div>
+<nav class="flex flex-wrap justify-center gap-md">
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">About Us</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Contact Support</a>
+</nav>
+</div>
+</footer>
+<!-- Mobile Bottom NavBar (Contextual Filter Rule) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50 flex justify-around items-center h-16 px-md">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="text-[10px] font-bold">Explore</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="text-[10px] font-bold">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[10px] font-bold">My Page</span>
+</a>
+</nav>
+<script>
+        // Simple Micro-interactions
+        const tabs = ['selling', 'buying', 'liked'];
+        tabs.forEach(tabId => {
+            const el = document.getElementById(`tab-${tabId}`);
+            if (el) {
+                el.addEventListener('click', () => {
+                    tabs.forEach(id => {
+                        const otherEl = document.getElementById(`tab-${id}`);
+                        if (otherEl) {
+                            otherEl.classList.remove('border-primary', 'text-primary', 'font-bold');
+                            otherEl.classList.add('border-transparent', 'text-on-surface-variant', 'font-medium');
+                        }
+                    });
+                    el.classList.add('border-primary', 'text-primary', 'font-bold');
+                    el.classList.remove('border-transparent', 'text-on-surface-variant', 'font-medium');
+                });
+            }
+        });
+
+        // Add small hover animations to items
+        document.querySelectorAll('.flex.gap-sm.p-sm').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0px)';
+            });
+        });
+    </script>
+
+
+</body></html>

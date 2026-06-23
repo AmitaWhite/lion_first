@@ -1,0 +1,36 @@
+package com.paprika.global.exception;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+
+@Getter
+@RequiredArgsConstructor
+public enum ErrorCode {
+
+    // Auth (A - 민동현)
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증이 필요합니다."),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다."),
+    EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "만료된 토큰입니다."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
+    DUPLICATE_EMAIL(HttpStatus.CONFLICT, "이미 사용 중인 이메일입니다."),
+
+    // Product (B - 백성민)
+    PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "상품을 찾을 수 없습니다."),
+    PRODUCT_ACCESS_DENIED(HttpStatus.FORBIDDEN, "상품에 대한 권한이 없습니다."),
+
+    // Chat (C - 한대천)
+    CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "채팅방을 찾을 수 없습니다."),
+    CHAT_ACCESS_DENIED(HttpStatus.FORBIDDEN, "채팅방에 대한 권한이 없습니다."),
+
+    // Transaction (D - 이동준)
+    TRANSACTION_NOT_FOUND(HttpStatus.NOT_FOUND, "거래를 찾을 수 없습니다."),
+    INVALID_TRANSACTION_STATUS(HttpStatus.BAD_REQUEST, "유효하지 않은 거래 상태입니다."),
+
+    // Common
+    INVALID_INPUT(HttpStatus.BAD_REQUEST, "잘못된 입력값입니다."),
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 오류가 발생했습니다.");
+
+    private final HttpStatus httpStatus;
+    private final String message;
+}

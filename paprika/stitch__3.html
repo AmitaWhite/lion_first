@@ -1,0 +1,316 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sell on Paprika | Product Registration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#94f990",
+                        "background": "#fcf9f8",
+                        "primary": "#a83900",
+                        "on-tertiary-container": "#002c4f",
+                        "surface-container-high": "#eae7e7",
+                        "outline": "#907065",
+                        "tertiary-container": "#2196f3",
+                        "inverse-surface": "#303030",
+                        "surface-dim": "#dcd9d9",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#78dc77",
+                        "error": "#ba1a1a",
+                        "surface": "#fcf9f8",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary-fixed-variant": "#802900",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline-variant": "#e4beb1",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-container": "#ff5a00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#005313",
+                        "primary-fixed": "#ffdbcf",
+                        "on-surface-variant": "#5b4137",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "on-surface": "#1b1c1c",
+                        "surface-tint": "#a83900",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#f0eded",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container-highest": "#e5e2e1",
+                        "inverse-primary": "#ffb59a",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#91f78e",
+                        "on-tertiary-fixed": "#001d36",
+                        "on-background": "#1b1c1c",
+                        "on-primary-fixed": "#380d00",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#ffb59a",
+                        "on-secondary-container": "#00731e",
+                        "on-primary-container": "#511700",
+                        "tertiary": "#0061a4",
+                        "surface-bright": "#fcf9f8",
+                        "secondary": "#006e1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xl": "64px",
+                        "gutter": "16px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "container-margin": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Noto Sans"],
+                        "body-sm": ["Noto Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Noto Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fcf9f8;
+            color: #1b1c1c;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e4beb1;
+            border-radius: 10px;
+        }
+        .input-focus-ring:focus {
+            outline: none;
+            border-color: #a83900;
+            box-shadow: 0 0 0 4px rgba(168, 57, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="docked full-width top-0 sticky z-50 bg-surface dark:bg-surface-dim shadow-sm h-20">
+<div class="flex justify-between items-center w-full px-container-margin max-w-7xl mx-auto h-full gap-md">
+<!-- Brand Logo -->
+<a class="text-headline-lg font-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight" href="/">Paprika</a>
+<!-- Search Bar -->
+<div class="hidden md:flex flex-1 max-w-md mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary/20 text-body-sm" placeholder="Search for items..." type="text">
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex items-center gap-md">
+<div class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Categories</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Chat</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">My Page</a>
+</div>
+<button class="bg-primary text-on-primary px-lg py-2 rounded-full font-bold hover:bg-primary-container transition-all active:scale-95 font-label-md text-label-md">Sell</button>
+</div>
+</div>
+</nav>
+<main class="flex-grow w-full max-w-4xl mx-auto px-container-margin py-lg">
+<!-- Header -->
+<header class="mb-lg">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">List your item</h1>
+<p class="text-on-surface-variant font-body-md">Fill out the details below to reach thousands of local buyers.</p>
+</header>
+<form class="space-y-lg" onsubmit="return false;">
+<!-- Photo Upload Section -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant/30">
+<label class="block font-headline-md text-headline-md text-on-surface mb-sm">Photos <span class="text-primary">*</span> <span class="text-body-sm font-normal text-on-surface-variant ml-2">(Up to 10)</span></label>
+<div class="flex gap-sm overflow-x-auto pb-sm custom-scrollbar">
+<!-- Upload Trigger -->
+<div class="flex-shrink-0 w-32 h-32 rounded-lg bg-surface-container flex flex-col items-center justify-center border-2 border-dashed border-outline-variant cursor-pointer hover:bg-surface-container-high transition-colors group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">add_a_photo</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-xs">0 / 10</span>
+</div>
+<!-- Placeholder Previews -->
+<div class="relative flex-shrink-0 w-32 h-32 rounded-lg overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="A high-quality, professional product photograph of a vintage mechanical camera on a clean, minimalist wooden table. The lighting is warm and directional, creating soft shadows and highlighting the metallic textures of the device. The background is a soft-focus interior with neutral tones, fitting the Paprika brand aesthetic of community and warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8VuO-FmNEUtjgeLdlc7THAHLs2w80eK8CaGV6STlTdQ8WZZJuTzKqQSZJsnRcyrgMFcOrrr7k_0dBLC2Hdjd5X_QnFcrLWDttfjp3MpWZKxNjVps9vvnkGSNOsYtFBLc3aCFNSQmQjMNwNchavGC4rpgtA94siD4A0njaxUQ3-Q7aiQ8M2OcFXpqmqgC9mE4fuQMbFSbzJxaDFijOkdshd94Ih2mJLROVgs7mf_oMI1fUtxj8lA9aJ5yEI6ZRd1QZL2ZI-sRWXCU">
+<div class="absolute top-1 left-1 bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Primary</div>
+<button class="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<div class="relative flex-shrink-0 w-32 h-32 rounded-lg overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="A secondary angle shot of a vintage mechanical camera, showing its leather-wrapped side and lens details. The lighting is bright and airy, typical of a modern e-commerce marketplace. The background is a clean, off-white surface that ensures the product stands out clearly. The overall composition is balanced and inviting for potential buyers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApdx0YcrTX67KJvWAgxhnITdKqZYEdTFTf4WaSQSuXugbIywJolsJgwxWdDPXuaftxzecLTKSJpZA5Zx1z096OI7O-P4Eqsi_jYRSlJ7hs9EsnSKgiU7nGxTdYfW3G_51sxaW2a7ysLIHcVYYroY8D4cGuH53Ppa7KVgFRUfj7j7CwhkdCkaAn-bT9BACW4fE9sHRRR3EybJXOz8L4dh4Pf9L3Pj5n5Vs7eYlrHiCcXo5vH9bqWwmTBdt5dpoagJHGpW2JsumcMGI">
+<button class="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Basic Info Section -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant/30 space-y-md">
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface">Title <span class="text-primary">*</span></label>
+<input class="w-full px-md py-sm bg-surface-container-low border-none rounded-lg font-body-md input-focus-ring" placeholder="What are you selling?" type="text">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface">Category <span class="text-primary">*</span></label>
+<select class="w-full px-md py-sm bg-surface-container-low border-none rounded-lg font-body-md input-focus-ring appearance-none">
+<option>Select Category</option>
+<option>Digital Devices</option>
+<option>Home Appliances</option>
+<option>Furniture/Interior</option>
+<option>Fashion/Accessories</option>
+<option>Books/Tickets</option>
+</select>
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface">Price (₩) <span class="text-primary">*</span></label>
+<div class="flex items-center gap-sm">
+<div class="relative flex-grow">
+<input class="w-full px-md py-sm bg-surface-container-low border-none rounded-lg font-body-md input-focus-ring" placeholder="Enter amount" type="number">
+</div>
+<label class="flex items-center gap-xs cursor-pointer select-none">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+<span class="text-label-md font-label-md text-on-surface-variant">Negotiable</span>
+</label>
+</div>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface">Description <span class="text-primary">*</span></label>
+<textarea class="w-full px-md py-sm bg-surface-container-low border-none rounded-lg font-body-md input-focus-ring resize-none" placeholder="Describe the item's condition, features, and reason for selling. High-quality descriptions lead to faster sales." rows="6"></textarea>
+</div>
+</section>
+<!-- Trade Method & Location -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant/30 space-y-md">
+<div class="space-y-xs">
+<label class="block font-headline-md text-headline-md text-on-surface">Trade Details</label>
+<div class="flex flex-wrap gap-md mt-sm">
+<label class="flex items-center gap-sm cursor-pointer p-sm border-2 border-outline-variant rounded-xl flex-1 min-w-[140px] hover:border-primary transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+<input checked="" class="hidden peer" type="checkbox">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">handshake</span>
+<span class="font-label-md text-label-md text-on-surface">Direct Trade</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer p-sm border-2 border-outline-variant rounded-xl flex-1 min-w-[140px] hover:border-primary transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+<input class="hidden peer" type="checkbox">
+<span class="material-symbols-outlined text-on-surface-variant peer-checked:text-primary">local_shipping</span>
+<span class="font-label-md text-label-md text-on-surface">Delivery</span>
+</label>
+</div>
+</div>
+<div class="space-y-sm pt-sm">
+<label class="block font-label-md text-label-md text-on-surface">Trade Location</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">location_on</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-low border-none rounded-lg font-body-md input-focus-ring" placeholder="Search for your neighborhood or building" type="text">
+</div>
+<!-- Map Placeholder -->
+<div class="relative w-full h-64 rounded-xl overflow-hidden bg-surface-container group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-location="Seoul, South Korea" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBoSX6nQvj2oMAqwrkIgFttsfPFqMCoTzedNyERIAQjkjwUJ2PaxWmckBit_z61vtP6zOzkMrfer1nWkhY9N91B4t5eZsUUIALq_xURJ7GWJbmFHCgINl6GLZ3mFfpv_3ngV7_zcUntwILlzbChA-DEPEr6ea90fbqbJxp5aMHhyFTRKZl9IkNLP9RKynPmw4faVnCxTejfD5lcZZFa3DksOSymzIyXBmB1wFf57NVkapcz32hFNFWqSRwg_UB8lYJ28lxTP8x6GzM')">
+</div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="bg-primary text-on-primary p-3 rounded-full shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+</div>
+</div>
+<!-- Map Overlay Controls -->
+<div class="absolute bottom-4 right-4 flex flex-col gap-xs">
+<button class="w-10 h-10 bg-white rounded-lg shadow-md flex items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-10 h-10 bg-white rounded-lg shadow-md flex items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Buttons -->
+<div class="flex flex-col md:flex-row gap-md pt-lg pb-xl">
+<button class="flex-1 order-2 md:order-1 py-lg rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary/5 transition-all active:scale-[0.98]" type="button">
+                    Save Draft
+                </button>
+<button class="flex-[2] order-1 md:order-2 py-lg rounded-xl bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:bg-primary-container hover:shadow-xl transition-all active:scale-[0.98]" type="submit">
+                    Publish Item
+                </button>
+</div>
+</form>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest border-t border-outline-variant mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-container-margin py-lg max-w-7xl mx-auto gap-md">
+<div class="flex flex-col items-center md:items-start gap-xs">
+<span class="font-headline-md text-headline-md text-on-surface-variant">Paprika</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Paprika Inc. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary-container transition-colors" href="#">About Us</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary-container transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary-container transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary-container transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple Interaction logic for form focus states
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+            el.addEventListener('focus', () => {
+                el.parentElement.querySelector('label')?.classList.add('text-primary');
+            });
+            el.addEventListener('blur', () => {
+                el.parentElement.querySelector('label')?.classList.remove('text-primary');
+            });
+        });
+
+        // Trade method toggle visual logic
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', function() {
+                const icon = this.parentElement.querySelector('.material-symbols-outlined');
+                if (this.checked) {
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                } else {
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                }
+            });
+        });
+    </script>
+</body></html>

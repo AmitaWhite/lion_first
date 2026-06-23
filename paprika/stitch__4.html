@@ -1,0 +1,368 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Paprika - Product Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ff5a00",
+                        "surface-tint": "#a83900",
+                        "on-primary-fixed": "#380d00",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "primary": "#a83900",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-fixed": "#ffdbcf",
+                        "primary-fixed-dim": "#ffb59a",
+                        "surface-container": "#f0eded",
+                        "surface": "#fcf9f8",
+                        "tertiary-fixed": "#d1e4ff",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed-dim": "#78dc77",
+                        "on-primary-fixed-variant": "#802900",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "on-secondary-fixed": "#002204",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "tertiary": "#0061a4",
+                        "surface-bright": "#fcf9f8",
+                        "inverse-surface": "#303030",
+                        "on-tertiary-fixed": "#001d36",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-primary-container": "#511700",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "background": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "on-secondary-container": "#00731e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#002c4f",
+                        "on-surface-variant": "#5b4137",
+                        "surface-dim": "#dcd9d9",
+                        "outline-variant": "#e4beb1",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#2196f3",
+                        "surface-container-high": "#eae7e7",
+                        "secondary-container": "#91f78e",
+                        "inverse-primary": "#ffb59a",
+                        "secondary-fixed": "#94f990",
+                        "secondary": "#006e1c",
+                        "outline": "#907065"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "gutter": "16px",
+                        "xl": "64px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "container-margin": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Noto Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Noto Sans"],
+                        "body-sm": ["Noto Sans"],
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed">
+<!-- Top Navigation Bar -->
+<header class="bg-surface dark:bg-surface-dim shadow-sm docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-container-margin max-w-7xl mx-auto h-20 gap-md">
+<div class="flex items-center gap-md">
+<a class="text-headline-lg font-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight" href="#">Paprika</a>
+<div class="hidden md:flex items-center gap-6 ml-8">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Categories</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">My Page</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Chat</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 lg:w-64" placeholder="Search for anything..." type="text">
+</div>
+<button class="bg-primary-container text-white px-6 py-2.5 rounded-full font-bold hover:opacity-90 active:scale-95 transition-all shadow-md">
+                    Sell
+                </button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-margin py-md md:py-lg">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<!-- Left Column: Image Gallery -->
+<div class="lg:col-span-7">
+<div class="sticky top-28 space-y-md">
+<!-- Main Image with Glassmorphism Overlay -->
+<div class="relative aspect-square rounded-[32px] overflow-hidden bg-surface-container shadow-lg group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A professional, high-quality studio photograph of a vintage mechanical Leica camera sitting on a clean, white minimalist wooden surface. The lighting is soft and directional, creating elegant shadows. The overall aesthetic is clean and modern, following a light-mode palette with warm wood tones and silver metallic accents. The mood is sophisticated and collectible." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKYxLqlJCWIkp8EqZ1N8d8AwFztNqgkuLvOkGOUCD4CeAWXXW0DdgtFjx0QjnVuQZFOdWajUE8Q7mcLG3CxPNoXZqIlZMksAEj2Cp-z2cAVjRxo7hLM-pSOIlK3cB5IVJV24sFjQWlWf7GaoXwvt_M7767YSHf2SAGiZTqBCmToSpAVyXw39Wvjy3UbJAVKuzu_VpFQfxVe2DOZrBc5pn6bAaP7mWkFkCEB7N-ZSu9ZRxvg5RNZCn5vFML0AWNKJ0kJUY1OIbq91c">
+<div class="absolute bottom-6 left-6 flex gap-2">
+<span class="bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm uppercase tracking-wider">Selling</span>
+</div>
+<button class="absolute top-6 right-6 w-12 h-12 bg-white/60 backdrop-blur-md rounded-full flex items-center justify-center text-on-surface-variant hover:bg-white transition-all shadow-md">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+</div>
+<!-- Thumbnails -->
+<div class="flex gap-4 overflow-x-auto pb-2 hide-scrollbar">
+<button class="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden border-2 border-primary ring-4 ring-primary-fixed shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Close up detailed shot of the lens of a classic silver Leica camera, showing precision glass elements and engraved markings. Bright, clean minimalist studio background. Part of a cohesive set of product photography for a high-end marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-cCox7NqW2NGDee6IVHVNCGGAShtKKncxYtSu7kjTJzS7ozz6q-SgEu12wBwwvxePVrevmoG4pFec-BY1938UE6XIMOOW7v7OTLhSYtGPifGTi1Zy7GJ146IeOGrz9EF1B-qrggcBuyfku0Fm473_E3JpL74Ke2dNEAuhcnIzu9itErAPUbfrra2omb2wxvg4DwRc8jlGJca_6Fbqco6tOus_x9uA69H-bU4whEGeFfbgHq1IT2tEI9aVTlrTGXVqH6lALVwmxzU">
+</button>
+<button class="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden border-2 border-transparent hover:border-outline transition-all opacity-70 hover:opacity-100">
+<img class="w-full h-full object-cover" data-alt="The back view of a vintage mechanical camera, highlighting the leather texture and analog film advance lever. Soft studio lighting on a neutral grey background, consistent with a clean corporate design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc-zb3j5-XR4Sep-qWvVwAX_tLiN4MmuP53GV0i3aGBL5EOrpubqYFKZ920Nb1Glc9-DAKVoJrAkbxP1hfc2vBQTHhJkT3d8JsP74TAayCsZ2pDJB1PLV4-oXraWUG8grz-6fujwGvtL30NqsgdWbIJlMXX1Ubktxt0eRFBk5BwcmBg-1nG1fFPnqydH9sLgURXWepTplzmRvTVuhToLhVxAsE9-74DTcclw7KM31RYiWu-yYg0FmKjR6NF_-4ZRLJNi-ACXje-UE">
+</button>
+<button class="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden border-2 border-transparent hover:border-outline transition-all opacity-70 hover:opacity-100">
+<img class="w-full h-full object-cover" data-alt="Side profile of a sleek silver and black camera, showcasing its slim profile and dial controls. Professional lighting against a white background, embodying a fresh and energetic brand personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1X0UuQt8oPMyx0OIVVJroW_YPjgELgaAhDFItiOYsHDINoUyFyd-a64E3cdlI62_AsHTvXbtrdEHSarguxRl6Y8tFyNdA64nkfvvzIlzNI0vmYG70OgfNqB52b3Y4tIaDcQEAmWNce_9vq84mCoBxWeTsPBBdRfv2JdK8E6lT2BVBegpPBvq8Hp4w3RmryhMStlOua0QqC1scxT5RdizfdXXzyszVggUcz2qkBzxnLvfgk1IpP0h07igBwboB2K2K9hQQlU7G2t0">
+</button>
+<button class="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden border-2 border-transparent hover:border-outline transition-all opacity-70 hover:opacity-100 relative group">
+<img class="w-full h-full object-cover" data-alt="The top view of an antique camera showing the shutter speed dial and aperture rings. Crisp focus on details, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu8eYucPP1oepmUun483jhxPg_ou6Ebko7_E7Q37XzEhteP-620CB-jYnq6hbnzrJt5kgh9uLZrfyNh8Bh4qtqPLtMCGyBTwPvfcaWQ4nhWIsn4VaHmH0ti6xfD9EbDY5LyKkczIfZ8qwn_DbHLGFIEzq8CKKJ05LIjOlLln7BQxnfQtFfd4YJAGGWS9e1KpAaJ-017DHAhGQlJNGuTR2BK-pbEd4M2kq1mZLuI0rO2rP1Nx40GZZ4pHGTXZXitHH4AKBiTaN5-s4">
+<div class="absolute inset-0 bg-on-surface/40 flex items-center justify-center text-white text-sm font-bold">+2</div>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Info & Interaction -->
+<div class="lg:col-span-5 space-y-xl">
+<!-- Seller Profile Section -->
+<div class="bg-surface-container-low rounded-[24px] p-md flex items-center justify-between shadow-sm border border-outline-variant/30">
+<div class="flex items-center gap-sm">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A friendly, approachable portrait of a mid-30s professional photographer with a warm smile, set against a blurred creative studio background. The lighting is soft and natural, emphasizing trust and reliability in a community-driven marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy4Bzan-P3gWt_QEQqoRBxta64sYKYcOvAdVbawko2gDfsa__q7HW47CpAjpraHBA97A-vbUcGMb38kmnJsraHNlTDP0RnDXVd1jhjXZ1vOKKbRFzRo8XZs2yknTmaEilTk8gZVdE29KRz60h-Rbj1633MfwqeESZHXgPTnROPqnGDrf86rQ60QIasH7O6jDfRMHvf34TsQ0gSED1wNZeuIj5SQHRIRiFjoEJ37kOya0uSbtwWjz8RizLJmZj252qSTHp_iU-2bmw">
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">ArtisanLens</h3>
+<a class="text-primary font-label-md text-label-md hover:underline" href="#">View Items</a>
+</div>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-2 mb-1 justify-end">
+<span class="text-primary font-bold text-label-md">36.5°C</span>
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">sentiment_satisfied</span>
+</div>
+<div class="w-32 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[72%]"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-1 uppercase tracking-widest font-bold">Manner Temperature</p>
+</div>
+</div>
+<!-- Product Info -->
+<section class="space-y-md">
+<div class="space-y-base">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>Electronics</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>2 hours ago</span>
+</div>
+<h1 class="text-display font-display leading-tight">Vintage Leica M3 Mechanical Masterpiece</h1>
+<p class="text-primary font-headline-lg font-headline-lg">$2,450.00</p>
+</div>
+<div class="h-[1px] bg-outline-variant/30 w-full"></div>
+<div class="space-y-sm">
+<p class="text-on-surface font-body-md text-body-md leading-relaxed">
+                            A stunning example of German engineering. This M3 has been meticulously maintained and recently serviced by a professional technician. No light leaks, accurate shutter speeds, and a clear viewfinder with bright frame lines.
+                            <br><br>
+                            Includes the original leather strap and a protective lens cap. Perfect for both collectors and film enthusiasts looking to experience the purest form of photography.
+                        </p>
+<div class="flex items-center gap-md text-on-surface-variant pt-4">
+<div class="flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm">visibility</span>
+<span>1.2k views</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm">favorite</span>
+<span>48 likes</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm">chat_bubble</span>
+<span>12 chats</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Bar (Floating Style) -->
+<div class="lg:pt-lg">
+<div class="flex items-center gap-sm">
+<button class="w-14 h-14 rounded-2xl border-2 border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-all" id="like-btn">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="w-14 h-14 rounded-2xl border-2 border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="flex-1 h-14 bg-primary-container text-white rounded-2xl font-bold text-headline-md flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all shadow-lg">
+<span class="material-symbols-outlined">verified_user</span>
+                            Secure Payment
+                        </button>
+</div>
+<p class="text-center text-on-surface-variant text-[11px] mt-4 font-label-sm">
+                        Paprika guarantees safe transactions with our secure payment system.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Related Items Section -->
+<section class="mt-xl pt-xl border-t border-outline-variant/30">
+<div class="flex justify-between items-end mb-md">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">You might also like</h2>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Based on your interest in vintage cameras</p>
+</div>
+<a class="text-primary font-bold hover:underline flex items-center gap-1" href="#">
+                    See more <span class="material-symbols-outlined">chevron_right</span>
+</a>
+</div>
+<!-- Bento-ish Grid for Related Items -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Item 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] rounded-[24px] overflow-hidden bg-surface-container relative mb-3 shadow-sm border border-transparent hover:border-primary transition-all">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A detailed image of a Summicron 50mm f/2 lens for Leica cameras, placed on a dark textured fabric. Soft cinematic lighting with amber highlights, matching a warm and energetic second-hand marketplace vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOQNrO0ns-PzPcXRXgWYXk9gWMCCqzzLpucldk8RosW_CaAhdmuNDgEimvBSTJOo3_mX969nYz1cXuP_yhnSLBaGgZstcg46RR0EdrTND0lIaKOQXGZmu9B51TBb9v_4QlB97FJD9kzQ8uj8ljS5QSMdHxkSObPoV5RK5B8_xPJumALTXaBXejvDpV8bh7odIeNuHCBhSbsbl0N7Y4iWL72BZiiOLjZL0qG2QHvbmKhffNOYwp5fyjmgEIxShUt5fCn384fks4o4c">
+<button class="absolute top-3 right-3 w-8 h-8 bg-white/60 backdrop-blur-md rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">favorite</span>
+</button>
+</div>
+<h4 class="font-bold text-on-surface text-body-md truncate">Leica Summicron 50mm f2</h4>
+<p class="text-primary font-bold text-label-md">$1,200</p>
+</div>
+<!-- Item 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] rounded-[24px] overflow-hidden bg-surface-container relative mb-3 shadow-sm border border-transparent hover:border-primary transition-all">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A vintage light meter from the 1960s with a chrome body and leather case. Clean studio product photography on a light wood surface, consistent with the Paprika brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0pWR06JGm0G-4ube-cTqOVcELBIhYarx161pMhWzU1Yf4OgRRQ9kbu-oa6ISW_WuaalN-79MmKwhfKHHe4fAdTDrhsF73bn38gtwOTpX7xB5yW2lpF9r_yaA0wDDDzIPt5llTtpej249u8xwCH6jsqxsCBNZdY8ZKgL6NyXrIBZxKUPYflS60jgrgYqoppbk-4wwT6UFeWyBHlSpmhNEfBlJlJy141U_apSYBcuC-okDzHGxAD2rtO4crZO_02ZU5LCdjLBo1tGA">
+<div class="absolute bottom-3 left-3">
+<span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase">Reserved</span>
+</div>
+</div>
+<h4 class="font-bold text-on-surface text-body-md truncate">Vintage Exposure Meter</h4>
+<p class="text-primary font-bold text-label-md">$85</p>
+</div>
+<!-- Item 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] rounded-[24px] overflow-hidden bg-surface-container relative mb-3 shadow-sm border border-transparent hover:border-primary transition-all">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A collection of 35mm film rolls including Kodak and Fujifilm, arranged artistically in a wooden tray. High-key lighting, bright colors, and soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5Rf4BbFd1Ojf5jnm9JbsnL6mXmWUAIYwq3s6iVJLFjipQO4gE3juk6GQeSStu0EHd5gBxGB4lBaq6An6utW-jEn0SZSC1219zBEhnZwzMb9WNJqgPYjpbeVxvbqWWeU8MziIrp_drULdMdaDCrs8zMMBpcVbxR5tKB-o8gCWCakqKqfFRUb5qz57pKd0SDsTlKWYG64Sp53I73CLcyOo6PCJ46RBqi50_yzfKj1-S_8QpzMg4JFt3h0Ygwu81rTi5e9ytRiulQfE">
+</div>
+<h4 class="font-bold text-on-surface text-body-md truncate">Bulk 35mm Film Stock</h4>
+<p class="text-primary font-bold text-label-md">$150</p>
+</div>
+<!-- Item 4 -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] rounded-[24px] overflow-hidden bg-surface-container relative mb-3 shadow-sm border border-transparent hover:border-primary transition-all">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sturdy vintage leather camera bag with brass buckles and a worn patina. Placed on a rustic wooden floor with warm atmospheric lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACiuvBEgqCMJ5nDLRah3BPznVEYI4lOfIuPPks5K7I4f82ZgTRZ2RmTSLzWPG5di790wktgdzHD6NTu83DyFaN6ULL10tBysyfl-y7QuDATWLD0biSW9gz300OBDgxF7xWapQRanJRIq67ai9jBbt2byblrJSQrm0SJLAkcSnmeIkuM9G75B5MKUNPAXtTMmAnRDB2t7TpCKH9uCGJG8gfVPCp0tlKvarn70CP1QNDKFTFotIQR2lUCvyv1p0pBjeU_PSphBl1KMs">
+</div>
+<h4 class="font-bold text-on-surface text-body-md truncate">Custom Leather Case</h4>
+<p class="text-primary font-bold text-label-md">$210</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest full-width mt-auto border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-container-margin py-lg max-w-7xl mx-auto gap-md">
+<div class="space-y-base text-center md:text-left">
+<span class="font-headline-md text-headline-md text-on-surface-variant block">Paprika</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">Connecting people through the circular economy. Fresh deals, every day.</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Paprika Inc. All rights reserved.</p>
+</div>
+<div class="flex gap-md flex-wrap justify-center">
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">About Us</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<!-- Mobile Bottom Navigation (Visible on mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface shadow-[0_-4px_12px_rgba(0,0,0,0.05)] h-20 flex justify-around items-center px-4 z-50 border-t border-outline-variant/10">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] font-medium">Map</span>
+</button>
+<button class="w-12 h-12 bg-primary-container text-white rounded-full flex items-center justify-center -mt-8 shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-[10px] font-medium">Chat</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">My</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions
+        const likeBtn = document.getElementById('like-btn');
+        let isLiked = false;
+        
+        likeBtn.addEventListener('click', () => {
+            isLiked = !isLiked;
+            const icon = likeBtn.querySelector('.material-symbols-outlined');
+            if (isLiked) {
+                icon.style.fontVariationSettings = "'FILL' 1";
+                likeBtn.classList.add('text-primary', 'border-primary', 'scale-110');
+            } else {
+                icon.style.fontVariationSettings = "'FILL' 0";
+                likeBtn.classList.remove('text-primary', 'border-primary', 'scale-110');
+            }
+            setTimeout(() => likeBtn.classList.remove('scale-110'), 200);
+        });
+
+        // Hover effects for images
+        document.querySelectorAll('.aspect-square, .aspect-\\[4\\/5\\]').forEach(container => {
+            container.addEventListener('mouseenter', () => {
+                container.querySelector('img').style.transform = 'scale(1.05)';
+            });
+            container.addEventListener('mouseleave', () => {
+                container.querySelector('img').style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

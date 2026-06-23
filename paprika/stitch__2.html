@@ -1,0 +1,364 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Paprika | Chat &amp; Notifications</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary-container": "#ff5a00",
+                "surface-tint": "#a83900",
+                "on-primary-fixed": "#380d00",
+                "error": "#ba1a1a",
+                "surface-container-highest": "#e5e2e1",
+                "on-error": "#ffffff",
+                "on-surface": "#1b1c1c",
+                "primary": "#a83900",
+                "on-primary": "#ffffff",
+                "inverse-on-surface": "#f3f0ef",
+                "primary-fixed": "#ffdbcf",
+                "primary-fixed-dim": "#ffb59a",
+                "surface-container": "#f0eded",
+                "surface": "#fcf9f8",
+                "tertiary-fixed": "#d1e4ff",
+                "surface-container-low": "#f6f3f2",
+                "secondary-fixed-dim": "#78dc77",
+                "on-primary-fixed-variant": "#802900",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#00497d",
+                "on-secondary-fixed": "#002204",
+                "tertiary-fixed-dim": "#9ecaff",
+                "tertiary": "#0061a4",
+                "surface-bright": "#fcf9f8",
+                "inverse-surface": "#303030",
+                "on-tertiary-fixed": "#001d36",
+                "on-secondary-fixed-variant": "#005313",
+                "on-primary-container": "#511700",
+                "error-container": "#ffdad6",
+                "on-error-container": "#93000a",
+                "background": "#fcf9f8",
+                "on-background": "#1b1c1c",
+                "on-secondary-container": "#00731e",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary-container": "#002c4f",
+                "on-surface-variant": "#5b4137",
+                "surface-dim": "#dcd9d9",
+                "outline-variant": "#e4beb1",
+                "surface-variant": "#e5e2e1",
+                "on-tertiary": "#ffffff",
+                "tertiary-container": "#2196f3",
+                "surface-container-high": "#eae7e7",
+                "secondary-container": "#91f78e",
+                "inverse-primary": "#ffb59a",
+                "secondary-fixed": "#94f990",
+                "secondary": "#006e1c",
+                "outline": "#907065"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "md": "24px",
+                "xs": "4px",
+                "lg": "40px",
+                "gutter": "16px",
+                "xl": "64px",
+                "base": "8px",
+                "sm": "12px",
+                "container-margin": "20px"
+            },
+            "fontFamily": {
+                "label-md": ["Plus Jakarta Sans"],
+                "label-sm": ["Plus Jakarta Sans"],
+                "body-lg": ["Noto Sans"],
+                "headline-md": ["Plus Jakarta Sans"],
+                "headline-lg": ["Plus Jakarta Sans"],
+                "headline-lg-mobile": ["Plus Jakarta Sans"],
+                "body-md": ["Noto Sans"],
+                "body-sm": ["Noto Sans"],
+                "display": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chat-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #e4beb1;
+            border-radius: 10px;
+        }
+        .message-bubble-in {
+            border-bottom-left-radius: 4px;
+        }
+        .message-bubble-out {
+            border-bottom-right-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-dim shadow-sm docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-container-margin max-w-7xl mx-auto h-20 gap-md">
+<div class="flex items-center gap-md">
+<span class="text-headline-lg font-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight">Paprika</span>
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-md py-xs w-64 lg:w-96">
+<span class="material-symbols-outlined text-on-surface-variant text-body-md">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full placeholder:text-on-surface-variant/60" placeholder="Search for items..." type="text">
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Categories</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">My Page</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Chat</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button class="bg-primary text-on-primary font-bold px-md py-sm rounded-full hover:scale-95 transition-transform font-label-md text-label-md">Sell</button>
+<button class="material-symbols-outlined p-xs text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant">
+<img class="w-full h-10 object-cover" data-alt="A professional studio portrait of a friendly young woman with a warm smile, wearing a casual orange linen shirt, clear soft lighting, against a clean light grey background, representing a reliable community seller." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnr9FAPA1tKkZjEldyMVdry3tfmcE4ytjEXU2trYFeL520cpL-MEhBf6sh6LpZMSPtAL9ju8HOGlz_Mp1uPx-OGp3LLv4oI2EypQu9oCN9DMTXcIV8bEIUW45ihcmHfRLLTdv_pB9HyfdTVTt0jYoTg339tLNOIu061tqlH_pGOw2DAds2qp3sC3nv9zNYb3-H--0KXfHy13az32aq7JFL4SCdFHjt4vyxS7ksr60cTr5p5XfFcM8xRlgWHIfzOmJAciPDxouIIEk">
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-margin py-md grid grid-cols-1 md:grid-cols-12 gap-gutter h-[calc(100vh-140px)] min-h-[600px]">
+<!-- Sidebar: Chat Rooms -->
+<aside class="md:col-span-3 bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col border border-outline-variant/30">
+<div class="p-md border-b border-outline-variant/30 bg-surface">
+<h2 class="font-headline-md text-headline-md text-primary">Messages</h2>
+</div>
+<div class="flex-1 overflow-y-auto chat-scroll">
+<!-- Chat Room Item -->
+<div class="p-md flex gap-sm bg-primary-fixed/20 border-l-4 border-primary cursor-pointer transition-colors">
+<div class="relative flex-shrink-0">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="Close up of a vintage film camera on a wooden table with soft morning sunlight streaming in, vibrant colors and high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY58tsHuVLgoiTrmEAfHYA7V3KaGaNA9rsn6vis6LEOCkDTYpdpXbSY4s8paEUPYaicRlDDYisBj89fAOAn30eiQvwxSEklsgNwB0k5B8mkiQ2XCSlm3P1R4iOkwXpNCGYqLleKZaYpFiM8C3n2oXOn-MoxVKe6fJQm4f4uHPl5DWT9coUrltuXj_u1VQSb0Spz_ZiWT8AZKgBsvwdG4f9bf-PxAhO6YEtNE6WyOZzDmWiAGsvi6HBQabIw-VvhhX3O-T28LfuwdQ">
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface truncate">RetroLover99</span>
+<span class="text-[10px] text-on-surface-variant/70">14:20</span>
+</div>
+<p class="text-body-sm text-primary font-bold truncate">Is the price negotiable?</p>
+</div>
+<div class="bg-primary text-on-primary text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">2</div>
+</div>
+<!-- Chat Room Item -->
+<div class="p-md flex gap-sm hover:bg-surface-container transition-colors cursor-pointer border-l-4 border-transparent">
+<div class="relative flex-shrink-0">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A sleek modern ergonomic office chair in charcoal grey fabric, studio lighting, soft shadows, high-end furniture photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm1swY7ZnU4-0359Z8QTLh0M0V9Qe4xh4tDUiRyNaTQcK-R50NHQVZH2bdin0p92uC_KcmyNlkciwm4XKq7smdVEzQKesHnpN7Q6Wr5lA9zlzvxezmtxyYKc-R6xMfk5H0_TPlamItyxMPvb-dbvQ-EcX1etV9cVzJZiJo106-WwXfUkVdPib6kunM7wifxTm0UTObp1lr_z8V1zb_Fx0lLXQbaGci_6P4gBUGuKEYeAv_tV9HoIZysuUf0Uv3uSIfZ6ozuWjs0vc">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface truncate">OfficeDesignCo</span>
+<span class="text-[10px] text-on-surface-variant/70">Yesterday</span>
+</div>
+<p class="text-body-sm text-on-surface-variant truncate">The item has been reserved for you.</p>
+</div>
+</div>
+<!-- Chat Room Item -->
+<div class="p-md flex gap-sm hover:bg-surface-container transition-colors cursor-pointer border-l-4 border-transparent">
+<div class="relative flex-shrink-0">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A collection of vibrant monstera and pothos houseplants in terracotta pots arranged in a bright sun-drenched corner of a modern apartment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvuezGVyKsguTV43dzJ8qwvDTWM7LdtvnBp6nC1n4CsgjfgXuLaPbI0X_svnPSmP8NK3o0IKYGHHjebBGi5Iy_QURCSGWfPkgjsmfz9UcsqC97f-5OGBlwPFRFBg4pCVD_T1fMcvTLl7vHEKhmVl1hpYe_2ftIxwoPuIY41BtdZ1QPxERZiLnBs2_DO5I2-eGGi-UcL1LL0asoerSBc49Ro2avRkUujaZ7xGaO4JMA-9SHQ6lw1TCzqy3GMBXhcUBl_QOWKbZt_hQ">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface truncate">GreenThumb</span>
+<span class="text-[10px] text-on-surface-variant/70">Tue</span>
+</div>
+<p class="text-body-sm text-on-surface-variant truncate">Thanks for the smooth trade!</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Chat Area -->
+<section class="md:col-span-6 flex flex-col bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
+<!-- Item Info Banner -->
+<div class="p-sm bg-surface flex items-center justify-between border-b border-outline-variant/30 px-md">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded object-cover" data-alt="Detailed close up of a vintage 35mm film camera, showing metallic textures and optical glass lens elements, warm retro tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR--ip7-REcAr5xHi7RUUpE8rMVC-AyUtTeNmH1_eLccf7PjcHfBwBA5-rC8XXrTTVgVCJOP7NOH1_DCb4ExjSrj7H9piFbibEQOa5GzoYO1z1ozrJ-9d5cXiickRlAS6TeppvCog-laBHg6cltwBOPX_SIbr9kGKVNDgwYFRpQTZ4fTc3A13pMt6w6zt3llYoXhCRhtmmOmsDL5Q7IxGBrehqd7ALAPZtqWv4K2y8YAvWBxU4A0yRE0dSKOIXSGAU2F7hB_lLIJU">
+<div>
+<div class="flex items-center gap-xs">
+<span class="bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-bold px-xs py-[2px] rounded uppercase">Selling</span>
+<span class="font-label-md text-label-md">Vintage Canon AE-1</span>
+</div>
+<span class="text-primary font-bold font-body-sm text-body-sm">$180.00</span>
+</div>
+</div>
+<button class="bg-secondary-container text-on-secondary-container font-bold px-md py-xs rounded-full text-label-sm hover:opacity-90 transition-opacity">Reserve</button>
+</div>
+<!-- Messages Container -->
+<div class="flex-1 overflow-y-auto p-md space-y-md chat-scroll bg-[#FAF9F8]">
+<div class="flex justify-center">
+<span class="text-[11px] bg-surface-container px-sm py-[2px] rounded-full text-on-surface-variant/70">Monday, Oct 14</span>
+</div>
+<!-- Message In -->
+<div class="flex items-start gap-sm max-w-[85%]">
+<img class="w-8 h-8 rounded-full flex-shrink-0" data-alt="A youthful face of a creative enthusiast, shot in a warm natural light setting, wearing trendy eyeglasses and a denim jacket, representing a friendly community buyer." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE9lt9uLkk-eOOKyCvmY6e2jXnmBi5PfZYQkL4AbvQwMOs1OTvkpdJKMxWjqW51qQuGjngx0iHiWQiZrSkAQ0cggNVgt7CnMSaVZ4Z6wkcAwtNXLfNJk3bsVKSWcvyT0Ek-iRpBE0Z-xL-gQuYItl-M2mWSHEaSgveRyn8pe4_zk6-ZmqaLn0Is53rmcz3toh-l95-lRfNox5LklJdd6HFEauxIvfF9TKKWU2kJW5zV-MsseXvXgZ8C4vktKf6lMDbf483aXdIl8A">
+<div>
+<div class="flex items-end gap-xs">
+<div class="bg-surface-container-high p-sm rounded-xl message-bubble-in shadow-sm">
+<p class="text-body-sm">Hello! I'm very interested in this camera. Is it still available for sale?</p>
+</div>
+<span class="text-[10px] text-on-surface-variant/60 mb-1">14:15</span>
+</div>
+</div>
+</div>
+<!-- Message Out -->
+<div class="flex flex-row-reverse items-start gap-sm max-w-[85%] ml-auto">
+<div class="flex flex-col items-end">
+<div class="flex items-end gap-xs flex-row-reverse">
+<div class="bg-primary p-sm rounded-xl message-bubble-out text-on-primary shadow-md">
+<p class="text-body-sm text-on-primary">Yes, it is! I just listed it this morning. It's in perfect working condition.</p>
+</div>
+<span class="text-[10px] text-on-surface-variant/60 mb-1">14:18</span>
+</div>
+</div>
+</div>
+<!-- Message In -->
+<div class="flex items-start gap-sm max-w-[85%]">
+<img class="w-8 h-8 rounded-full flex-shrink-0" data-alt="A youthful face of a creative enthusiast, shot in a warm natural light setting, wearing trendy eyeglasses and a denim jacket, representing a friendly community buyer." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYLv1j5P76XAn3NhFkTbpuYILzIZBsipftOJTXF4Vih8R8fMSgDqOerz9hHaIa1Immb88LwV5Mdp4doBwZ-wnBkhoKVspCJqoTwMhw0bfQPLbQqQ-Z-eHpwv8G2p5gq_8b60AVeXbR_wNK6i7zyBKnrkKtBc_adexZDsBzGMynUJ07LmXkWHQTNyqLWaQBCw4_LWvsIQ-Ny6BFU7e4gAbDSo1PFkjXEcdAba17SC_hOrYF4hd5GWpGChlm-8do4Flq93sRJofomlU">
+<div>
+<div class="flex items-end gap-xs">
+<div class="bg-surface-container-high p-sm rounded-xl message-bubble-in shadow-sm">
+<p class="text-body-sm font-bold">Is the price negotiable?</p>
+</div>
+<span class="text-[10px] text-on-surface-variant/60 mb-1">14:20</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-md bg-surface border-t border-outline-variant/30">
+<div class="flex items-center gap-sm bg-surface-container-low rounded-xl px-sm py-xs border border-transparent focus-within:border-primary focus-within:bg-white transition-all shadow-sm">
+<div class="flex items-center gap-xs">
+<button class="material-symbols-outlined p-xs text-on-surface-variant hover:text-primary transition-colors">add_circle</button>
+<button class="material-symbols-outlined p-xs text-on-surface-variant hover:text-primary transition-colors">image</button>
+<button class="material-symbols-outlined p-xs text-on-surface-variant hover:text-primary transition-colors">location_on</button>
+</div>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-body-sm py-sm" placeholder="Send a message..." type="text">
+<button class="material-symbols-outlined p-sm bg-primary text-on-primary rounded-lg hover:scale-95 transition-transform" style="font-variation-settings: 'FILL' 1;">send</button>
+</div>
+</div>
+</section>
+<!-- Notification Panel -->
+<aside class="hidden lg:flex md:col-span-3 flex-col bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
+<div class="bg-surface">
+<div class="flex border-b border-outline-variant/30">
+<button class="flex-1 py-md font-label-md text-label-md text-primary border-b-2 border-primary">System</button>
+<button class="flex-1 py-md font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Keywords</button>
+<button class="flex-1 py-md font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Activity</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto chat-scroll p-md space-y-md">
+<!-- Notification Item -->
+<div class="flex gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors group">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]">campaign</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-sm leading-tight"><span class="font-bold">System:</span> Paprika's 5th anniversary event starts tomorrow! Join for exclusive rewards.</p>
+<span class="text-[10px] text-on-surface-variant/50 mt-1 block">2 hours ago</span>
+</div>
+</div>
+<!-- Notification Item -->
+<div class="flex gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors group">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container text-[20px]">payments</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-sm leading-tight">Payment confirmed for <span class="font-bold">Organic Coffee Beans</span>. Please ship the item soon.</p>
+<span class="text-[10px] text-on-surface-variant/50 mt-1 block">5 hours ago</span>
+</div>
+</div>
+<!-- Notification Item -->
+<div class="flex gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors group">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant text-[20px]">key</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-sm leading-tight">Keyword Alert: New listing for <span class="font-bold">"Mechanical Keyboard"</span> in your area!</p>
+<span class="text-[10px] text-on-surface-variant/50 mt-1 block">Yesterday</span>
+</div>
+</div>
+<!-- Notification Item -->
+<div class="flex gap-sm p-sm rounded-lg hover:bg-surface-container transition-colors group">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-error-container text-[20px]">warning</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-sm leading-tight">Security Alert: New login detected from Chrome on MacOS.</p>
+<span class="text-[10px] text-on-surface-variant/50 mt-1 block">Oct 12</span>
+</div>
+</div>
+</div>
+<div class="p-md border-t border-outline-variant/30 text-center">
+<button class="text-primary font-bold font-label-sm text-label-sm hover:underline">View all notifications</button>
+</div>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest full-width mt-auto border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-container-margin py-lg max-w-7xl mx-auto gap-md">
+<div class="flex flex-col gap-xs items-center md:items-start">
+<span class="font-headline-md text-headline-md text-on-surface-variant">Paprika</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Paprika Inc. All rights reserved.</span>
+</div>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors font-label-sm text-label-sm" href="#">About Us</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors font-label-sm text-label-sm" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors font-label-sm text-label-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors font-label-sm text-label-sm" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple Interaction logic for demo
+        document.querySelectorAll('aside div.cursor-pointer').forEach(room => {
+            room.addEventListener('click', () => {
+                // Remove active states
+                document.querySelectorAll('aside div.cursor-pointer').forEach(r => {
+                    r.classList.remove('bg-primary-fixed/20', 'border-primary');
+                    r.classList.add('border-transparent');
+                });
+                // Set active state
+                room.classList.add('bg-primary-fixed/20', 'border-primary');
+                room.classList.remove('border-transparent');
+            });
+        });
+    </script>
+</body></html>

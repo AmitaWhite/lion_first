@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Paprika - Fresh Neighborhood Market</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#ff5a00",
+                    "surface-tint": "#a83900",
+                    "on-primary-fixed": "#380d00",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-error": "#ffffff",
+                    "on-surface": "#1b1c1c",
+                    "primary": "#a83900",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f3f0ef",
+                    "primary-fixed": "#ffdbcf",
+                    "primary-fixed-dim": "#ffb59a",
+                    "surface-container": "#f0eded",
+                    "surface": "#fcf9f8",
+                    "tertiary-fixed": "#d1e4ff",
+                    "surface-container-low": "#f6f3f2",
+                    "secondary-fixed-dim": "#78dc77",
+                    "on-primary-fixed-variant": "#802900",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#00497d",
+                    "on-secondary-fixed": "#002204",
+                    "tertiary-fixed-dim": "#9ecaff",
+                    "tertiary": "#0061a4",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-surface": "#303030",
+                    "on-tertiary-fixed": "#001d36",
+                    "on-secondary-fixed-variant": "#005313",
+                    "on-primary-container": "#511700",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "background": "#fcf9f8",
+                    "on-background": "#1b1c1c",
+                    "on-secondary-container": "#00731e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#002c4f",
+                    "on-surface-variant": "#5b4137",
+                    "surface-dim": "#dcd9d9",
+                    "outline-variant": "#e4beb1",
+                    "surface-variant": "#e5e2e1",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#2196f3",
+                    "surface-container-high": "#eae7e7",
+                    "secondary-container": "#91f78e",
+                    "inverse-primary": "#ffb59a",
+                    "secondary-fixed": "#94f990",
+                    "secondary": "#006e1c",
+                    "outline": "#907065"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "xs": "4px",
+                    "lg": "40px",
+                    "gutter": "16px",
+                    "xl": "64px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "container-margin": "20px"
+            },
+            "fontFamily": {
+                    "label-md": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "body-lg": ["Noto Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Noto Sans"],
+                    "body-sm": ["Noto Sans"],
+                    "display": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fcf9f8;
+            color: #1b1c1c;
+            -webkit-font-smoothing: antialiased;
+        }
+        .product-card {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #ffdbcf 0%, #fcf9f8 100%);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-dim shadow-sm docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-container-margin max-w-7xl mx-auto h-20 gap-md">
+<!-- Brand Logo -->
+<div class="text-headline-lg font-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight">
+                Paprika
+            </div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Categories</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">My Page</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Chat</a>
+</nav>
+<!-- Search & Action -->
+<div class="flex items-center gap-sm">
+<button class="bg-primary hover:bg-surface-tint text-on-primary font-bold px-lg py-2 rounded-full transition-all duration-200 active:scale-95 font-label-md text-label-md">
+                    Sell
+                </button>
+<button class="md:hidden p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="hero-gradient pt-xl pb-lg px-container-margin">
+<div class="max-w-7xl mx-auto text-center space-y-md">
+<h1 class="font-display text-display text-on-surface max-w-3xl mx-auto">
+                    The neighborhood marketplace for <span class="text-primary">fresh finds.</span>
+</h1>
+<!-- Search Bar -->
+<div class="max-w-2xl mx-auto relative group">
+<div class="flex items-center bg-surface-container-lowest rounded-full p-2 shadow-sm border border-outline-variant focus-within:border-primary transition-all">
+<span class="material-symbols-outlined ml-4 text-outline">search</span>
+<input class="flex-grow bg-transparent border-none focus:ring-0 px-4 py-2 font-body-md text-body-md text-on-surface" placeholder="Search for items near you..." type="text">
+<button class="bg-primary text-on-primary px-lg py-3 rounded-full font-bold transition-transform active:scale-95">
+                            Search
+                        </button>
+</div>
+<!-- Trending Keywords -->
+<div class="mt-sm flex flex-wrap justify-center gap-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Trending:</span>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Vintage Camera</a>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Coffee Table</a>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Nike Dunks</a>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Plants</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Grid -->
+<section class="py-lg px-container-margin max-w-7xl mx-auto">
+<div class="grid grid-cols-4 md:grid-cols-8 gap-gutter">
+<!-- Category Item -->
+<a class="flex flex-col items-center gap-xs group" href="#">
+<div class="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">devices</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Electronics</span>
+</a>
+<a class="flex flex-col items-center gap-xs group" href="#">
+<div class="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">checkroom</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Fashion</span>
+</a>
+<a class="flex flex-col items-center gap-xs group" href="#">
+<div class="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">home</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Home</span>
+</a>
+<a class="flex flex-col items-center gap-xs group" href="#">
+<div class="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">toys</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Kids</span>
+</a>
+<a class="flex flex-col items-center gap-xs group" href="#">
+<div class="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">sports_tennis</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sports</span>
+</a>
+<a class="flex flex-col items-center gap-xs group" href="#">
+<div class="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">menu_book</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Books</span>
+</a>
+<a class="flex flex-col items-center gap-xs group" href="#">
+<div class="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">palette</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hobbies</span>
+</a>
+<a class="flex flex-col items-center gap-xs group" href="#">
+<div class="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">more_horiz</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Others</span>
+</a>
+</div>
+</section>
+<!-- New Arrivals Section -->
+<section class="py-lg px-container-margin max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">New Arrivals</h2>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-md">
+<!-- Product Card 1 -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="A high-quality product shot of a vintage mahogany coffee table in a sunlit, modern living room. The room has high-key lighting, soft white walls, and a minimalist aesthetic. The furniture is the centerpiece, showing rich wood grain and a clean silhouette. The overall vibe is warm, inviting, and professional, characteristic of a high-end second-hand marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_h0bgpbIDbPkCu6F7rhiQmmKqJfVZuUyeNA4yJhE6GX0UspUTj6ydOKN1Mb0xQ01VCdfa_mBp2k4xeZRKT6ObTs0G9bcjkcUZ25BSTILirNQES3ndcAQP7EMPecuPpipY8DgSLBlK_JYqlZ68bnQz9kqzwLXt_G9NbW0BKJuhr_AVnD42HOiTL1ix0i0OCQrTl2fqMbHmFHwyEtYt04hpd6mTExeybMI4_aG_hLtibsvv99huDqs8xjX-8owLaCjrcUILtUR6fLo">
+</div>
+<div class="p-sm space-y-1">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Mahogany Coffee Table</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Brooklyn, NY</p>
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-headline-md text-primary">$120</span>
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-2 py-0.5 rounded-full font-label-sm text-[10px] uppercase font-bold">Selling</span>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="A professional product photograph of a clean, white mechanical keyboard on a tidy office desk. Beside it is a small green plant and a warm cup of coffee. The lighting is soft and natural from a nearby window. The scene is bright and airy with a modern corporate aesthetic, emphasizing clarity and trust for a peer-to-peer commerce platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIHAy0BOhzYjtlHj-bUkt1mHzY6wrLyjP5To9Dsj-kBZuYV1DqYvzik-rUf3RfJ7OoSrEKoSeEhaVsOBrBcmLbPyzBTFHfJBLjk4yqdxm72FQb0cNvBrDVEhlJvDFqVzYK95tfKR0KfJqZnK6duzJrOHHGsv-i31xIN-i_KjHAbYTHtF0n3BiKlcaFACYO3QEmHo-c0R6AZyBpPRGt958UVriroJHzRDRR2zWuKtXQGkzwobeG9ukaZyPCCdc5EVBvIuUvdaVS2A0">
+</div>
+<div class="p-sm space-y-1">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Custom Mechanical Keyboard</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Jersey City, NJ</p>
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-headline-md text-primary">$85</span>
+</div>
+</div>
+</div>
+<!-- Product Card 3 (Reserved) -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="A sleek, modern mountain bike leaning against a minimalist concrete wall. The bike is dark grey with vibrant orange accents, matching the Paprika brand colors. The lighting is crisp, highlighting the textures of the tires and the metallic finish of the frame. The overall composition is clean and focused, typical of a high-end lifestyle product catalog." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLN8sgvFRaSokSch-JAfA7dwXV3NF1rirpSpmS0dTOgipxDQz6GDXoRPHce6R712UUSxIyZAJg-tP6x4QUxbtbdyHxqTpcR8rh1gX2R9P_nuuWbK_zIMtQ83zJESjxOFOlmabj6JBGd1kHavGa-MpMl9yDPYh3zGsRE_7tboUJo0lvEAlqLR2wSE6-WpuGiKgsld2-e9vGnYRpvTDCULAkMRWTUul4a-UybfNGP8AP6zSRF6DtLnCUGlwpksdV1aSbMPJ19f0dHXk">
+<div class="absolute inset-0 bg-on-surface/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="bg-surface/90 px-md py-2 rounded-full font-label-md text-primary">Quick View</span>
+</div>
+</div>
+<div class="p-sm space-y-1">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Trek Mountain Bike</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Queens, NY</p>
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-headline-md text-primary">$450</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2 py-0.5 rounded-full font-label-sm text-[10px] uppercase font-bold">Reserved</span>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="A collection of vintage film cameras arranged artistically on a white wooden surface. The shot uses shallow depth of field, focusing on a beautiful silver rangefinder in the foreground. Soft morning light creates gentle shadows and highlights the metallic and leather textures. The aesthetic is nostalgic yet premium, conveying reliability and quality for used goods." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6qJvwToU_CPDdAojw7OmI26BK3qonaUsTIzEU6N7g51e3x89M-HsMIHafplzK5ndn1Xy7QmgZmEw1EUackzY2o91Xaenx7BZkNelKzp9U513qTtjS9nQFKLpn6MHLgG8QuQtFyN9-4N2t55cd6I3jXsNiBWEnfvMGlvB8DHKgLmu8hsMg7fPhRP74LdRhTwj3ospUYSkJOXvfXbtJu1_xB5d1bi_pnx7Y_t1KStV0t5xj3ebuy2RG-2lx6KWz5ulYRAd1cSetwkE">
+</div>
+<div class="p-sm space-y-1">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Retro Film Camera Collection</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manhattan, NY</p>
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-headline-md text-primary">$210</span>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="A stylish, mid-century modern armchair in a rich forest green velvet, placed in a bright corner of a room with a tall fiddle-leaf fig plant next to it. The floor is light oak wood. The lighting is warm and cinematic, emphasizing the soft texture of the fabric. The image communicates a sense of high-end home styling and curated second-hand shopping." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRgIrRgGpuRh8RHDJTCvFWsrz4kaQDERK4xrrP7Z5CkYGxvgV35hPFK9IsvidXRzYjBhrEyEErxq149HywG0n06b92NVWdM3dMolo75Aetc2dnEicqmsgK7SkIVB6mFwGoyfBRvYACZjwxKob2HYI-s9Q5wxQ5jPYyxjwtx2gVY051S1zblQ2asetiGtYGFcAm-8-rJrKX2IKFERSySasvKqAE7Lzwa88V9HIyC5GNUGXi7sCw1ToZqSilp90iTWlEo4IX4omFmNg">
+</div>
+<div class="p-sm space-y-1">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Velvet Reading Chair</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Hoboken, NJ</p>
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-headline-md text-primary">$175</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Banner / CTA -->
+<section class="my-xl px-container-margin max-w-7xl mx-auto">
+<div class="bg-primary rounded-3xl p-lg md:p-xl flex flex-col md:flex-row items-center justify-between gap-lg overflow-hidden relative">
+<div class="absolute -right-10 -top-10 w-64 h-64 bg-primary-container opacity-20 rounded-full blur-3xl"></div>
+<div class="relative z-10 text-center md:text-left">
+<h2 class="font-display text-headline-lg text-on-primary mb-sm">Turn your clutter into cash</h2>
+<p class="font-body-lg text-body-lg text-primary-fixed max-w-md">Snap a photo, set a price, and sell to your neighbors in minutes. It's that easy.</p>
+<button class="mt-md bg-surface text-primary font-extrabold px-xl py-4 rounded-full shadow-lg hover:bg-primary-fixed transition-all active:scale-95 font-label-md text-label-md">
+                        Start Selling Now
+                    </button>
+</div>
+<div class="hidden md:block relative z-10 w-1/3">
+<img class="rounded-2xl shadow-2xl rotate-3" data-alt="A lifestyle shot of a smiling young person using a smartphone to take a photo of a high-end designer handbag. They are in a bright, modern apartment with a clean, organized aesthetic. The image captures the ease and joy of using a community marketplace app. The colors are vibrant and saturated, reflecting the energetic Paprika brand personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6EsbHQKwoBSbXplaCcvxO7lijm7_Tz0-DRvsV3FLXm85SdfmChSFSJ7aaTl89jTkjUiCrDUS1AcuQtPLqcNQRdplqx-i0HbYAt7CHL-LYQtFIqBMrpSBindLea5ncsnuS7C-pg6IG5PdJXTVvhpNFwNe3NAUmsvLY6DvqXlOfPGk2GZKeK7j64rBcb0a29kYBjGjJ3xFtoc66OoecOeopGznORBCN3gOvBofQaa_WiDcobwfadXCbao9jCw9M-J7kVuavjbZoCkw">
+</div>
+</div>
+</section>
+<!-- Recommended Section -->
+<section class="pb-xl px-container-margin max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Recommended for You</h2>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">See more</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter">
+<!-- Mini Card 1 -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close-up shot of a minimalist silver wrist watch with a black leather strap, presented on a light grey marble surface. High-contrast studio lighting highlights the craftsmanship and clean lines of the design. The mood is sophisticated and elegant, emphasizing the curated nature of the marketplace items." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIm5WKO7ruqZNr5EtF61OvEaqxrzMLjHbTKi6GfpKoZRP9bXlh6pUDSWQoXwo73WWUbdKfFGFrxXFQa2V7xh3o-NDc7RBaBT-p3TUlNxi_8-GGmYvStpsLexw2mjEbOg7-YcZS-f-v3z5ziELSJx9UQ3RD6-LouCRB2W6BWkR6iExAMTtPuv6pZ9VZGy-epS8crlfReGTqtvrMXXWnOYLAIVRmg8DZKMyBI_Tgq_nm47ArBLQiF7IKT4iA61_X_s6ze0vKCgM5VtQ">
+</div>
+<div class="p-sm">
+<h3 class="font-label-sm text-label-sm text-on-surface truncate">Minimalist Watch</h3>
+<p class="font-headline-md text-headline-md text-primary text-sm">$45</p>
+</div>
+</div>
+<!-- Mini Card 2 -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A vibrant green Monstera Deliciosa plant in a white ceramic pot, sitting on a wooden stool in a bright, sun-filled room. The image is fresh and lively, with high-key lighting and a clean, modern aesthetic. The focus is on the health and color of the plant leaves, appealing to home decor enthusiasts." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAevoL1rHb3XEcjcycoUbn80gQV2whYGZ1caWIL1ZpLtPGVk8WVfyCBwETzLsa80uUuY3Wy07oeI_8t0RCq2lYXp9h80yaLvPUAgNaDVf_s6gqr9BoHqwjGT0WoxhTKMLTTsVbJ7aWPqnFXWzY1QoEm6U9GglIUa-9IVEbOA294_MtPZgI2u9VbZ_K7y56I7wC2k2bILndDizxE623xKNZa6vFE46Evsb05tcrRSBzkGcs_n6Xnwe9-e2psrKvGU8iXh_8vwjbIB3E">
+</div>
+<div class="p-sm">
+<h3 class="font-label-sm text-label-sm text-on-surface truncate">Monstera Plant</h3>
+<p class="font-headline-md text-headline-md text-primary text-sm">$25</p>
+</div>
+</div>
+<!-- Mini Card 3 -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A pair of stylish, high-top canvas sneakers in a classic off-white color, shown from a dynamic side angle. They are clean and well-maintained. The background is a soft, out-of-focus urban setting. The lighting is natural and bright, highlighting the texture of the canvas and the rubber soles." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPMee09briHw2fbIS9YUyMUoiUgAPODT_tfXw_FRPHXuwh0YPe4xGksi0RAc9ao2j2QBQNSiGQAsZJf01zPlM-vaDMVA0BeMFmADFtqZEcxhmdJVeD6-Y1-dwTUNG-G-RZF_cwXiG8QrktC2nd7B26pR2QPukb220KWU1RmvrsLma5TrZpyCbIZQUU7I_CrwNsjZcJHXKTNC0iblvp8TYFxRC_qjlTwJtqf5y5fTixEo_K-1zU7qFiVmxiYpryWrt_NSK8EbI3zPw">
+</div>
+<div class="p-sm">
+<h3 class="font-label-sm text-label-sm text-on-surface truncate">Classic Sneakers</h3>
+<p class="font-headline-md text-headline-md text-primary text-sm">$35</p>
+</div>
+</div>
+<!-- Mini Card 4 (Sold Out) -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group opacity-75">
+<div class="aspect-square bg-surface-container relative">
+<img class="w-full h-full object-cover grayscale" data-alt="A set of ceramic bowls in muted pastel colors, stacked neatly on a rustic wooden shelf. The lighting is soft and earthy, emphasizing the handcrafted quality of the ceramics. The overall aesthetic is cozy and domestic, perfect for a community-driven neighborhood market theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8TZRs84rG5IOmzd7zTMcJ0sdlQjQkrHwFUV39Q-ugT7LcK1Mw21bMWBBDYFcy6FqdqTNzrgxiSA8qME8ABI4hprkhf606_THpWtcAlJD79muzEuj2SQNSVK3vFmhlRv3yXBkGZQs9-WgigL9Y0Toj4ky7bjYuWmc1P9Xd4BLr1I4WUqxaSDJnlOC452PqMGwKU2lnFAeryiLmN4cUmqXG_g2iuD4b4GDpCdlqnMkcVPPhO5HdNsWm0iPyBEfr91PazueeM1Vi7TY">
+<div class="absolute inset-0 bg-on-surface/40 flex items-center justify-center">
+<span class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase">Sold Out</span>
+</div>
+</div>
+<div class="p-sm">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant truncate">Ceramic Bowl Set</h3>
+<p class="font-headline-md text-headline-md text-outline text-sm">$30</p>
+</div>
+</div>
+<!-- Mini Card 5 -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A modern, sleek bluetooth speaker in a matte black finish, positioned on a minimalist white desk. Beside it is a pair of high-end headphones. The lighting is cool and tech-focused, creating a clean, professional look that inspires trust in electronic goods on the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdBSu26QA4Zq_HBRMSLd9YHmbGpdIoyyKQiMzF1z6KBCkNssQGZFqM3B82gz7rZrQYlnoUquAimB5lC5YndwAM48ae8GnQe2ln3yoqKIM_IZEXbhJbYcM598zQYBaPKatB1kNTObXNoB4mvs5VOiINWq6ibXP-s0AAcLahFj5abo-TrI7CMZSmVaskgslCrDdg-U_PkoH8Pno8VTeueNGUKH1akohN5cV_pYVZaHTkjrY1KkcwyEmhhIe30CsOn6ILPiBSMSbtb2s">
+</div>
+<div class="p-sm">
+<h3 class="font-label-sm text-label-sm text-on-surface truncate">Portable Speaker</h3>
+<p class="font-headline-md text-headline-md text-primary text-sm">$60</p>
+</div>
+</div>
+<!-- Mini Card 6 -->
+<div class="product-card bg-surface-container-lowest rounded-xl overflow-hidden cursor-pointer group">
+<div class="aspect-square bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A collection of colorful art prints and postcards displayed on a grid wall above a desk. The prints feature various abstract and botanical designs. The lighting is bright and cheerful, highlighting the vibrant colors and creative energy. The scene represents the unique, one-of-a-kind finds available in the marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNOiG5DFADxNREgIdymsSbWtjh_cRlJNR8XwpE4gFhBsm1NjuK-NnL7nAcsm52h6pKfTSa3rPZrAjDaODsjCRgdQzpbyYUlMNdGeHvBmfElCz4PjAu35pPOOucHr2n8V9NjjqqBxCE4SuY3MgbVFtqGALButT67Y6tDzYsw1oXj4cHVbV99OU6_au66yHG3qr2V359MTTwbN_Cuf-B6TP2-KhTmCaLZSj7qXofQMM2OuneLHcZOKsXBVKWv6unHcwWRCQzq0qppO4">
+</div>
+<div class="p-sm">
+<h3 class="font-label-sm text-label-sm text-on-surface truncate">Art Print Set</h3>
+<p class="font-headline-md text-headline-md text-primary text-sm">$15</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest border-t border-outline-variant full-width mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-container-margin py-lg max-w-7xl mx-auto gap-md">
+<div class="space-y-sm">
+<div class="font-headline-md text-headline-md text-on-surface-variant">Paprika</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Paprika Inc. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">About Us</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+<div class="flex gap-sm">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary-container group transition-colors" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-primary">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary-container group transition-colors" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-primary">mail</span>
+</a>
+</div>
+</div>
+</footer>
+<!-- FAB for Mobile (Implicitly needed for transactional app) -->
+<button class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<script>
+        // Micro-interaction for search bar focus
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchContainer = searchInput?.parentElement;
+
+        searchInput?.addEventListener('focus', () => {
+            searchContainer.classList.add('shadow-md');
+            searchContainer.classList.add('scale-[1.01]');
+        });
+
+        searchInput?.addEventListener('blur', () => {
+            searchContainer.classList.remove('shadow-md');
+            searchContainer.classList.remove('scale-[1.01]');
+        });
+
+        // Simple scroll behavior for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>
