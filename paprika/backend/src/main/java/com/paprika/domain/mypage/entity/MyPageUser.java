@@ -16,6 +16,9 @@ public class MyPageUser {
     @Column(nullable = false, unique = true)
     private String nickname;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(name = "profile_image_url")
     private String profileImageUrl;
 

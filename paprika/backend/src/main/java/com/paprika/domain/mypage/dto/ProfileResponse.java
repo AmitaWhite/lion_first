@@ -12,12 +12,14 @@ import lombok.Getter;
 @Builder
 public class ProfileResponse {
     private Long id;
+    private String email;
     private String nickname;
     private String profileImageUrl;
 
     public static ProfileResponse from(MyPageUser user) {
         return ProfileResponse.builder()
                 .id(user.getId())
+                .email(user.getEmail())
                 .nickname(user.getNickname())
                 .profileImageUrl(user.getProfileImageUrl())
                 .build();
