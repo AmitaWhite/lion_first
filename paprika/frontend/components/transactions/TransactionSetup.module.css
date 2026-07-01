@@ -4,6 +4,12 @@
   gap: 16px;
 }
 
+.title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-on-surface);
+}
+
 .productSummary {
   display: flex;
   align-items: center;

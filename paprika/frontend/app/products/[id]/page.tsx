@@ -102,7 +102,7 @@ export default function ProductDetailPage({
             <button className={styles.secondaryButton} type="button">
               채팅하기
             </button>
-            <TradeButton postId={params.id} buttonClassName={styles.primaryButton} />
+            <TradeButton postId={params.id} buttonClassName={styles.secondaryButton} />
           </div>
         </div>
       </section>

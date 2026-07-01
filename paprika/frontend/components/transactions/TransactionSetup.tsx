@@ -16,9 +16,11 @@ interface TransactionSummary {
 }
 
 interface TransactionSetupProps {
-  /** URL 쿼리 대신 prop으로 postId를 넘길 때 사용 */
+  // 다른 화면(모달·상품 상세 등)에 끼워 넣을 때 제목을 끄거나 바꾸기 위한 옵션
+  title?: string | null;
+  // URL 쿼리 대신 prop으로 postId를 넘길 때 사용
   postId?: string | null;
-  /** 이미 진행 중인 거래가 있을 때 이동할 경로 */
+  // 이미 진행 중인 거래가 있을 때 이동할 경로
   statusRedirectPath?: string;
 }
 
@@ -31,12 +33,9 @@ const IN_PROGRESS = new Set(['PENDING', 'AGREED']);
  * 상품 postId 기준으로 상품 정보를 보여주고 직거래/택배를 선택한다.
  * 같은 상품에 내 진행 중(PENDING/AGREED) 거래가 있으면 상태 페이지로 보낸다.
  *
- * 라우트(/transactions?postId=)뿐 아니라 <TransactionSetup postId="1" /> 로 끼워 쓸 수 있다.
+ * 라우트(/transactions?postId=)뿐 아니라 어디서든 <TransactionSetup postId="1" /> 로 끼워 쓸 수 있다.
  */
-export default function TransactionSetup({
-  postId: postIdProp,
-  statusRedirectPath = '/transactions/status/test',
-}: TransactionSetupProps) {
+export default function TransactionSetup({ title = '거래 방식 선택', postId: postIdProp, statusRedirectPath = '/transactions/status/test' }: TransactionSetupProps) {
   const searchParams = useSearchParams();
   const postId = postIdProp ?? searchParams.get('postId');
 
@@ -140,6 +139,7 @@ export default function TransactionSetup({
 
   return (
     <div className={styles.container}>
+      {title && <h1 className={styles.title}>{title}</h1>}
       {postInfo && (
         <div className={styles.productSummary}>
           <div className={styles.productInfo}>

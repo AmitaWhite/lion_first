@@ -31,7 +31,7 @@ export default function TradeButton({ postId, buttonClassName }: TradeButtonProp
               닫기
             </button>
             <Suspense fallback={<p className={styles.loading}>거래 정보를 불러오는 중...</p>}>
-              <TransactionSetup postId={postId} />
+              <TransactionSetup postId={postId} title={null} />
             </Suspense>
           </div>
         </div>
