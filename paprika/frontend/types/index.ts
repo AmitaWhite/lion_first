@@ -40,6 +40,21 @@ export interface Product {
   createdAt: string;
 }
 
+export interface PostApiResponse {
+  id: number;
+  userId: number;
+  title: string;
+  content: string;
+  latitude: number;
+  longitude: number;
+  thumbnailUrl: string | null;
+  currentPrice: number;
+  active: boolean;
+  category: string | null;
+  viewCount: number;
+  createdAt: string;
+}
+
 // Chat (C - 한대천)
 export interface ChatRoom {
   id: number;
@@ -79,6 +94,15 @@ export interface Transaction {
   meetingTime?: string;
   trackingNumber?: string;
   createdAt: string;
+}
+
+// 거래 화면 표시용 상품 정보 (GET /api/v1/transactions/post-info/{postId})
+export interface PostInfo {
+  postId: number;
+  title: string;
+  price: number;
+  sellerId: number;
+  status: ProductStatus;
 }
 
 // Review (E - 장인호)
