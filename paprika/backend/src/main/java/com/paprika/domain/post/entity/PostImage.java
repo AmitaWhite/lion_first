@@ -55,7 +55,7 @@ public class PostImage {
      * 
      * @param scheduledAt
      */
-    public void softDelete() {
+    public void softDeleteSchedule() {
         this.active = false;
         this.deleteScheduledAt = OffsetDateTime.now().plusDays(7);
     }

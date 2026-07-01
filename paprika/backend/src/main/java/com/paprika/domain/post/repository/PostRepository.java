@@ -16,8 +16,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findByCategory(String category, Pageable pageable);
 
-    @Query("SELECT p FROM Product p WHERE p.title LIKE %:keyword% OR p.description LIKE %:keyword%")
+    @Query("SELECT p FROM Post p WHERE p.title LIKE %:keyword% OR p.content LIKE %:keyword%")
     Page<Post> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
-    Page<Post> findBySellerId(Long sellerId, Pageable pageable);
+    Page<Post> findById(Long id, Pageable pageable);
+
+    // 1. TODO: Search -> how?
+    // 1) Like
+    // 2) cacheing 전략?
 }

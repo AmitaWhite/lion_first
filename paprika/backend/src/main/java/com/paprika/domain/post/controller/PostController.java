@@ -24,14 +24,14 @@ import java.util.List;
  * - POST /api/v1/products/{id}/status 상태 변경 (판매중/예약중/판매완료)
  */
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("/api/v1/posts")
 @RequiredArgsConstructor
 public class PostController {
 
     // TODO: private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<Object>> getProducts(
+    public ResponseEntity<ApiResponse<Object>> getPosts(
             @PageableDefault(size = 20) Pageable pageable,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String keyword) {
@@ -40,13 +40,13 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<Object>> getProduct(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Object>> getPost(@PathVariable Long id) {
         // TODO: 구현
         return ResponseEntity.ok(ApiResponse.ok(null));
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Object>> createProduct(
+    public ResponseEntity<ApiResponse<Object>> createPost(
             /* @Valid @RequestBody ProductCreateRequest request, */
             @RequestParam(required = false) List<MultipartFile> images) {
         // TODO: 구현
@@ -54,20 +54,20 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<Object>> updateProduct(@PathVariable Long id
+    public ResponseEntity<ApiResponse<Object>> updatePosts(@PathVariable Long id
     /* @Valid @RequestBody ProductUpdateRequest request */) {
         // TODO: 구현
         return ResponseEntity.ok(ApiResponse.ok(null));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> deletePost(@PathVariable Long id) {
         // TODO: 구현
         return ResponseEntity.ok(ApiResponse.ok("상품이 삭제되었습니다.", null));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ApiResponse<Object>> searchProducts(
+    public ResponseEntity<ApiResponse<Object>> searchPosts(
             @RequestParam String keyword,
             @PageableDefault(size = 20) Pageable pageable) {
         // TODO: 자동완성 + 복합 검색 구현

@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
  * - 4. 예외 처리를 고민 해 보기
  */
 @Entity
-@Table(name = "posts")
+@Table(name = "post")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends BaseTimeEntity {
@@ -44,6 +44,8 @@ public class Post extends BaseTimeEntity {
     private String title;
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
+    @Column
+    private String thumbnailUrl;
     /**
      * 위도, 경도의 데이터 타입 (float vs double) 오차 고려함
      * - float: 7자리 소수점까지 정확, 약 1.1m 오차
@@ -62,7 +64,6 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private boolean active = true;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private PostCategory category;
     /**
      * product_status -> postStatus 로 컬럼명 변경
@@ -110,14 +111,23 @@ public class Post extends BaseTimeEntity {
     /* --- 2. Builder --- */
     @Builder
     private Post(Long userId, String title, String content, BigDecimal currentPrice) {
-        // TODO: 예외 처리 고민
-        if (userId == null || title == null || content == null || currentPrice == null) {
-            throw new IllegalArgumentException("필수 값이 누락 되었습니다.");
-        }
         this.userId = userId;
         this.title = title;
         this.content = content;
         this.currentPrice = currentPrice;
+    }
+
+    /* --- 2.1. static Factory Method */
+    public static Post createPost(Long userId, String title, String content, BigDecimal currentPrice) {
+        if (userId == null || title == null || content == null || currentPrice == null) {
+            throw new IllegalArgumentException("필수 값이 누락 되었습니다.");
+        }
+        return Post.builder()
+                .userId(userId)
+                .title(title)
+                .content(content)
+                .currentPrice(currentPrice)
+                .build();
     }
 
     /* --- 3. Entity Method --- */
@@ -157,5 +167,18 @@ public class Post extends BaseTimeEntity {
         }
         this.postStatus.validateNextStatus(newStatus);
         this.postStatus = newStatus;
+    }
+
+    /**
+     * Post Soft delete
+     */
+    public void softDeletePost() {
+        if (this.active) {
+            this.active = false;
+        }
+    }
+
+    public void addViewCount() {
+        this.viewCount++;
     }
 }

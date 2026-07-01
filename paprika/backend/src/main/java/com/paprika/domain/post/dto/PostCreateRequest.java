@@ -1,37 +1,40 @@
 package com.paprika.domain.post.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import lombok.Getter;
-
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * 상품 등록 요청 DTO
- * 담당: B - 백성민
- */
-@Getter
-public class PostCreateRequest {
+import com.paprika.domain.post.entity.Post.PostCategory;
 
-    @NotBlank
-    private String title;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.Builder;
 
-    private String description;
-
-    @NotNull
-    @Positive
-    private BigDecimal price;
-
-    private String category;
-
-    private String location;
-
-    private Double latitude;
-
-    private Double longitude;
-
-    // 이미지는 /api/v1/images/upload 로 먼저 업로드 후 URL 목록 전달
-    private List<String> imageUrls;
+@Builder
+public record PostCreateRequest(
+        @NotBlank String title,
+        @NotNull @Positive BigDecimal price,
+        @NotBlank String content,
+        PostCategory category,
+        double latitude,
+        double longitude,
+        List<String> imgUrls) {
+    public static PostCreateRequest of(
+            String title,
+            BigDecimal price,
+            String content,
+            PostCategory category,
+            double latitude,
+            double longitude,
+            List<String> imgUrls) {
+        return PostCreateRequest.builder()
+                .title(title)
+                .price(price)
+                .content(content)
+                .category(category)
+                .latitude(latitude)
+                .longitude(longitude)
+                .imgUrls(imgUrls)
+                .build();
+    }
 }

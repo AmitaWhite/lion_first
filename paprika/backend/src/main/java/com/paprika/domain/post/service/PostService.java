@@ -23,6 +23,5 @@ import com.paprika.domain.post.repository.PostRepository;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PostService {
-
-    private final PostRepository productRepository;
+    private final PostRepository postRepository;
 }
