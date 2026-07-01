@@ -15,6 +15,7 @@ import type { Metadata } from 'next';
 import type { Product } from '@/types';
 import styles from './page.module.css';
 import ChatButton from "@/components/chat/ChatButton";
+import TradeButton from "@/components/transactions/TradeButton";
 
 export const metadata: Metadata = {
   title: 'Paprika - 상품 상세',
@@ -100,9 +101,7 @@ export default function ProductDetailPage({
               관심 등록
             </button>
             <ChatButton postId={1} />
-            <button className={styles.primaryButton} type="button">
-              거래하기
-            </button>
+            <TradeButton postId={1} />
           </div>
         </div>
       </section>
