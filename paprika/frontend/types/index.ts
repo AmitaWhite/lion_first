@@ -118,11 +118,14 @@ export interface MyPageTransaction {
   amount: number;
   createdAt: string;
   imgUrl: string;
+  reviewId: number | null;
+  cancelledBy: 'BUYER' | 'SELLER' | null;
 }
 // Wishlist
 export interface WishListItem {
   id: number;
   productId: number;
+  title: string;
   imgUrl: string;
   createdAt: string;
 }
