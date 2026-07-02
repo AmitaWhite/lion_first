@@ -15,6 +15,7 @@ public class ProfileResponse {
     private String email;
     private String nickname;
     private String profileImageUrl;
+    private String provider;
 
     public static ProfileResponse from(MyPageUser user) {
         return ProfileResponse.builder()
@@ -22,6 +23,7 @@ public class ProfileResponse {
                 .email(user.getEmail())
                 .nickname(user.getNickname())
                 .profileImageUrl(user.getProfileImageUrl())
+                .provider(user.getProvider() != null ? user.getProvider().name() : null)
                 .build();
     }
 }
