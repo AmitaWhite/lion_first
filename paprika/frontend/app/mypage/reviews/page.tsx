@@ -4,17 +4,14 @@ import { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import { Review } from '@/types';
 import Pagination from '@/components/mypage/Pagination';
+import ReviewCard from '@/components/mypage/ReviewCard';
 import styles from '../page.module.css';
 
 const PAGE_SIZE = 10;
 
-function StarDisplay({ rating }: { rating: number }) {
-  return (
-    <div className={styles.stars}>
-      {'★'.repeat(rating)}{'☆'.repeat(5 - rating)}
-    </div>
-  );
-}
+// mypage 도메인 리뷰 카드는 섹션 배경(--color-surface-container-lowest)과 동일해서
+// otheruser 기본값(--color-surface)과 다르게 덮어씀
+const reviewCardStyle = { background: 'var(--color-surface-container-lowest)' };
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -49,13 +46,7 @@ export default function ReviewsPage() {
         <>
         <div className={styles.list}>
           {reviews.map((r) => (
-            <div key={r.id} className={styles.reviewCard}>
-              <StarDisplay rating={r.rating} />
-              <p className={styles.content}>{r.content}</p>
-              <p className={styles.meta}>
-                {r.reviewerNickname ?? '알 수 없음'} · {new Date(r.createdAt).toLocaleDateString()}
-              </p>
-            </div>
+            <ReviewCard key={r.id} review={r} style={reviewCardStyle} />
           ))}
         </div>
         <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />

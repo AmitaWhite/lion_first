@@ -23,8 +23,9 @@ public class ReviewResponse {
     private Integer mannerScore;
     private LocalDateTime createdAt;
     private Integer rating;
+    private Long postId;
 
-    public static ReviewResponse from(Review review, String reviewerNickname) {
+    public static ReviewResponse from(Review review, String reviewerNickname, Long postId) {
         return ReviewResponse.builder()
             .id(review.getId())
             .transactionId(review.getTransactionId())
@@ -35,6 +36,7 @@ public class ReviewResponse {
             .mannerScore(review.getMannerScore())
             .createdAt(review.getCreatedAt())
             .rating(review.getRating())
+            .postId(postId)
             .build();
     }
 }

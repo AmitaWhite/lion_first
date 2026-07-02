@@ -77,7 +77,7 @@ public class ReviewService {
                 .map(MyPageUser::getNickname)
                 .orElse(null);
 
-        return ReviewResponse.from(review, reviewerNickname);
+        return ReviewResponse.from(review, reviewerNickname, transaction.getPostId());
     }
 
     public ReviewResponse updateReview(Long reviewerId, Long reviewId, ReviewUpdateRequest request) {
@@ -101,8 +101,11 @@ public class ReviewService {
         String reviewerNickname = myPageUserRepository.findById(reviewerId)
                 .map(MyPageUser::getNickname)
                 .orElse(null);
+        Long postId = transactionRepository.findById(review.getTransactionId())
+                .map(Transaction::getPostId)
+                .orElse(null);
 
-        return ReviewResponse.from(review, reviewerNickname);
+        return ReviewResponse.from(review, reviewerNickname, postId);
     }
 
     @Transactional(readOnly = true)
@@ -113,8 +116,11 @@ public class ReviewService {
         String reviewerNickname = myPageUserRepository.findById(review.getReviewerId())
                 .map(MyPageUser::getNickname)
                 .orElse(null);
+        Long postId = transactionRepository.findById(review.getTransactionId())
+                .map(Transaction::getPostId)
+                .orElse(null);
 
-        return ReviewResponse.from(review, reviewerNickname);
+        return ReviewResponse.from(review, reviewerNickname, postId);
     }
 
     public void deleteReview(Long reviewerId, Long reviewId) {
@@ -147,8 +153,20 @@ public class ReviewService {
                 .stream()
                 .collect(Collectors.toMap(MyPageUser::getId, MyPageUser::getNickname));
 
+        List<Long> transactionIds = reviews.stream()
+                .map(Review::getTransactionId)
+                .distinct()
+                .collect(Collectors.toList());
+
+        Map<Long, Long> postIdByTransactionId = transactionRepository.findAllById(transactionIds)
+                .stream()
+                .collect(Collectors.toMap(Transaction::getId, Transaction::getPostId));
+
         List<ReviewResponse> all = reviews.stream()
-                .map(review -> ReviewResponse.from(review, nicknameByReviewerId.get(review.getReviewerId())))
+                .map(review -> ReviewResponse.from(
+                        review,
+                        nicknameByReviewerId.get(review.getReviewerId()),
+                        postIdByTransactionId.get(review.getTransactionId())))
                 .collect(Collectors.toList());
         int fromIndex = Math.min(page * size, all.size());
         int toIndex = Math.min(fromIndex + size, all.size());

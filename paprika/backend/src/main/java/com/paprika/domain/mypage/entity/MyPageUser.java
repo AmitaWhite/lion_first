@@ -3,6 +3,8 @@ package com.paprika.domain.mypage.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -25,6 +27,10 @@ public class MyPageUser {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Provider provider;
+
+    //유저 공개 프로필(가입일 표시)용. 실제 값은 auth 도메인 User 엔티티가 관리.
+    @Column(name = "created_at", updatable = false, insertable = false)
+    private LocalDateTime createdAt;
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;

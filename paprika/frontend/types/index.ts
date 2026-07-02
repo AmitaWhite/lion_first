@@ -130,7 +130,7 @@ export interface WishListItem {
   createdAt: string;
 }
 
-// Review (E - 장인호)
+// Review
 export interface Review {
   id: number;
   transactionId: number;
@@ -140,6 +140,7 @@ export interface Review {
   content: string;
   mannerScore: -2 | -1 | 0 | 1 | 2;
   createdAt: string;
+  postId: number | null;
 }
 // Mannertemperature
 export interface MannerTemperature {
@@ -147,6 +148,14 @@ export interface MannerTemperature {
   temperature: number;
   trustGrade: '나쁨' | '약간나쁨' | '보통' | '좋음' | '최고';
   reviewCount: number;
+}
+
+// PublicProfile 다른 유저 프로필 조회용
+export interface PublicProfile {
+  id: number;
+  nickname: string;
+  profileImageUrl: string | null;
+  createdAt: string;
 }
 
 // Common

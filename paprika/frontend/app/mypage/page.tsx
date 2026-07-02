@@ -7,7 +7,7 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import api from '@/lib/api';
 import { MyPageTransaction, WishListItem } from '@/types';
 import styles from './page.module.css';
@@ -51,7 +51,7 @@ const cancelledByLabels: Record<string, string> = {
 
 const orderTabKeys = orderTabs.map((tab) => tab.key);
 
-export default function MyPage() {
+function MyPageContent() {
   // 다른 화면(거래 완료 등)에서 /mypage?tab=buy 처럼 넘어올 때 해당 탭으로 바로 열어준다.
   // 값이 없거나 유효하지 않으면 기본값 '전체'로 시작한다.
   const searchParams = useSearchParams();
@@ -361,5 +361,13 @@ export default function MyPage() {
       )}
 
     </section>
+  );
+}
+
+export default function MyPage() {
+  return (
+    <Suspense fallback={<div>로딩중...</div>}>
+      <MyPageContent />
+    </Suspense>
   );
 }
