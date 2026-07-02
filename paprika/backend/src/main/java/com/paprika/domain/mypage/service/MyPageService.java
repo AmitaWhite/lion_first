@@ -10,6 +10,7 @@ import com.paprika.domain.mypage.entity.WishList;
 import com.paprika.domain.mypage.repository.MyPageUserRepository;
 import com.paprika.domain.mypage.dto.ProfileResponse;
 import com.paprika.domain.mypage.dto.ProfileUpdateRequest;
+import com.paprika.domain.mypage.dto.PublicProfileResponse;
 import com.paprika.domain.mypage.dto.TransactionSummaryResponse;
 import com.paprika.domain.mypage.dto.WishListResponse;
 import com.paprika.domain.mypage.repository.ReviewRepository;
@@ -85,6 +86,16 @@ public class MyPageService {
             user.updateProfileImage(request.getProfileImageUrl());
         }
         return ProfileResponse.from(user);
+    }
+
+    /**
+     * 공개 프로필 조회 (다른 유저가 볼 때 - 닉네임/아바타/가입일만)
+     * GET /api/v1/users/{userId}
+     */
+    public PublicProfileResponse getPublicProfile(Long userId) {
+        MyPageUser user = myPageUserRepository.findById(userId)
+                .orElseThrow(() -> new PaprikaException(ErrorCode.USER_NOT_FOUND));
+        return PublicProfileResponse.from(user);
     }
 
     /**

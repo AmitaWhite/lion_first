@@ -2,6 +2,7 @@ package com.paprika.domain.mypage.controller;
 
 import com.paprika.domain.mypage.dto.ProfileResponse;
 import com.paprika.domain.mypage.dto.ProfileUpdateRequest;
+import com.paprika.domain.mypage.dto.PublicProfileResponse;
 import com.paprika.domain.mypage.service.MyPageService;
 import com.paprika.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import java.util.Map;
  * - DELETE /api/v1/users/me/wishlist/{productId}    찜 취소
  * - GET    /api/v1/users/{id}/reviews    유저 리뷰 목록 (매너 온도)
  * - POST   /api/v1/reviews               거래 후기 작성
+ * - GET    /api/v1/users/{userId}        공개 프로필 조회 (다른 유저 프로필 화면용)
  */
 @RestController
 @RequestMapping("/api/v1/users")
@@ -49,6 +51,14 @@ public class MyPageController {
             @RequestBody ProfileUpdateRequest request) {
         Long userId = Long.parseLong(authentication.getName());
         return ResponseEntity.ok(myPageService.updateMyProfile(userId, request));
+    }
+
+    /**
+     * 공개 프로필 조회 (다른 유저 프로필 화면용)
+     */
+    @GetMapping("/{userId}")
+    public ResponseEntity<ApiResponse<PublicProfileResponse>> getPublicProfile(@PathVariable Long userId) {
+        return ResponseEntity.ok(ApiResponse.ok(myPageService.getPublicProfile(userId)));
     }
 
     /**

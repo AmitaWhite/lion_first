@@ -1,0 +1,71 @@
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  gap: 24px;
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--color-on-surface-variant);
+}
+
+.profileCard {
+  background: var(--color-surface-container-lowest);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 24px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.nickname {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.joinedAt {
+  font-size: 13px;
+  color: var(--color-on-surface-variant);
+  margin-bottom: 4px;
+}
+
+.reviewCount {
+  font-size: 13px;
+  color: var(--color-on-surface-variant);
+  margin-top: 4px;
+}
+
+.reviewSection {
+  background: var(--color-surface-container-lowest);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.sectionTitle {
+  margin-bottom: 16px;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+}
