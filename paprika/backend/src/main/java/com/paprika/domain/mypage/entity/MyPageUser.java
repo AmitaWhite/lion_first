@@ -22,6 +22,10 @@ public class MyPageUser {
     @Column(name = "profile_image_url")
     private String profileImageUrl;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Provider provider;
+
     public void updateNickname(String nickname) {
         this.nickname = nickname;
     }
@@ -29,4 +33,7 @@ public class MyPageUser {
     public void updateProfileImage(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
+
+    //User.Provider와 동일한 값. 마이페이지에서 소셜 로그인 여부만 판별하는 용도.
+    public enum Provider { LOCAL, GOOGLE, NAVER, GITHUB }
 }

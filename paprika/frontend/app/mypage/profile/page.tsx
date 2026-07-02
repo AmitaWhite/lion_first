@@ -6,11 +6,14 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import api from '@/lib/api';
 import { uploadImage } from '@/lib/image';
 import { clearTokens } from '@/lib/auth';
 import styles from './page.module.css';
 import MannerTemperature from '@/components/mypage/MannerTemperature';
+
+const DEFAULT_AVATAR = '/images/avatar-placeholder.svg';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -19,6 +22,7 @@ export default function ProfilePage() {
   const [tempNickname, setTempNickname] = useState('');
   const [email, setEmail] = useState('');
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
+  const [provider, setProvider] = useState<string | null>(null);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
   const [nicknameCheckMsg, setNicknameCheckMsg] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -33,7 +37,8 @@ export default function ProfilePage() {
         setTempNickname(data.nickname ?? '');
         setEmail(data.email ?? '');
         setProfileImageUrl(data.profileImageUrl ?? null);
-        
+        setProvider(data.provider ?? null);
+
         api.get(`/api/v1/users/${data.id}/manner`)
         .then((mannerRes) => {
           setTemperature(mannerRes.data.data.temperature);
@@ -43,6 +48,10 @@ export default function ProfilePage() {
     })
       .catch(() => alert('프로필 불러오기 실패'));
   }, []);
+
+  // 소셜 로그인(GOOGLE/NAVER/GITHUB) 계정은 비밀번호가 없어서 변경 버튼을 숨긴다.
+  // provider를 아직 못 불러온 초기 상태(null)에는 깜빡임 방지를 위해 표시하지 않는다.
+  const isLocalAccount = provider === 'LOCAL';
 
   const handleNicknameCheck = async () => {
     if (!tempNickname.trim()) return;
@@ -88,16 +97,15 @@ export default function ProfilePage() {
 
   const isSaveEnabled = tempNickname === nickname || isNicknameChecked;
 
-  // TODO: A(민동현)님이 회원 탈퇴 API 구현 전까지는 기능 없음(요청만 하고 실패로 끝남).
-  // 엔드포인트가 생기면 별도 수정 없이 바로 정상 동작함.
   const handleWithdraw = async () => {
     if (!confirm('정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) return;
     try {
-      await api.delete('/api/v1/users/me');
+      await api.delete('/api/v1/auth/withdraw');
       clearTokens();
+      alert('탈퇴가 완료되었습니다.');
       router.push('/login');
-    } catch {
-      // API 미구현 - 지금은 아무 동작 안 함
+    } catch (err: any) {
+      alert(err.response?.data?.message ?? '탈퇴 처리에 실패했습니다.');
     }
   };
 
@@ -110,11 +118,7 @@ export default function ProfilePage() {
 
           {/* 프로필 이미지 */}
           <div className={styles.avatarWrap}>
-            {profileImageUrl ? (
-              <img src={profileImageUrl} alt="프로필" className={styles.avatar} />
-            ) : (
-              <div className={styles.avatarPlaceholder} />
-            )}
+            <img src={profileImageUrl || DEFAULT_AVATAR} alt="프로필" className={styles.avatar} />
             <input type="file" accept=".jpg,.jpeg,.png" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImageChange} />
             <button onClick={() => fileInputRef.current?.click()} className={styles.avatarEditBtn}>
               수정
@@ -158,6 +162,9 @@ export default function ProfilePage() {
       </div>
 
       <div className={styles.dangerZone}>
+        {isLocalAccount && (
+          <Link href="/mypage/profile/password" className={styles.passwordBtn}>비밀번호 변경</Link>
+        )}
         <button onClick={handleWithdraw} className={styles.withdrawBtn}>회원 탈퇴하기</button>
       </div>
     </section>
