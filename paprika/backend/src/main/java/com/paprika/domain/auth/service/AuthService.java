@@ -104,6 +104,22 @@ public class AuthService {
     }
 
     @Transactional
+    public void changePassword(Long userId, PasswordChangeRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new PaprikaException(ErrorCode.USER_NOT_FOUND));
+
+        if (user.getPassword() == null) {
+            throw new PaprikaException(ErrorCode.OAUTH2_ACCOUNT);
+        }
+
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new PaprikaException(ErrorCode.INVALID_PASSWORD);
+        }
+
+        user.updatePassword(passwordEncoder.encode(request.getNewPassword()));
+    }
+
+    @Transactional
     public void withdraw(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new PaprikaException(ErrorCode.USER_NOT_FOUND));
