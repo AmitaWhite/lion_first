@@ -216,7 +216,6 @@ function MyPageContent() {
     if (t.status === 'PENDING' || t.status === 'AGREED') {
       return (
         <div className={styles.actionButtons}>
-          {/* 거래 확정(COMPLETED 전환)은 판매자만 — 물건을 실제로 보낸/전달한 쪽이 확정 */}
           {t.myRole === 'SELLER' && (
             <ConfirmTransactionButton
               transactionId={t.id}
