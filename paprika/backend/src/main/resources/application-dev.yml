@@ -8,9 +8,8 @@ spring:
 security:
   dev-mode: false
 
-# ── OAuth2 성공 후 프론트 리다이렉트 URI (prod) ─────────────
 oauth2:
-  redirect-uri: ${OAUTH2_REDIRECT_URI:https://paprika.coder-han.com/oauth2/callback}
+  redirect-uri: ${OAUTH2_REDIRECT_URI}
 
 logging:
   level:
