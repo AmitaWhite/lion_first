@@ -2,23 +2,25 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import ProductCard from '@/components/product/ProductCard';
 import type { Product } from '@/types';
 import api from '@/lib/api';
 import styles from './page.module.css';
 
 const categoryItems = [
-  { label: 'Electronics', icon: 'devices' },
-  { label: 'Fashion', icon: 'checkroom' },
-  { label: 'Home', icon: 'home' },
-  { label: 'Kids', icon: 'toys' },
-  { label: 'Sports', icon: 'sports_tennis' },
-  { label: 'Books', icon: 'menu_book' },
-  { label: 'Hobbies', icon: 'palette' },
-  { label: 'Others', icon: 'more_horiz' },
+  { label: 'Electronics', icon: 'devices', value: 'ELECTRONICS' },
+  { label: 'Fashion', icon: 'checkroom', value: 'FASHION' },
+  { label: 'Home', icon: 'home', value: 'HOME' },
+  { label: 'Kids', icon: 'toys', value: 'KIDS' },
+  { label: 'Sports', icon: 'sports_tennis', value: 'SPORTS' },
+  { label: 'Books', icon: 'menu_book', value: 'BOOKS' },
+  { label: 'Hobbies', icon: 'palette', value: 'HOBBIES' },
+  { label: 'Others', icon: 'more_horiz', value: 'OTHERS' },
 ];
 
 export default function HomePage() {
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -67,7 +69,12 @@ export default function HomePage() {
 
       <section className={styles.categoryGrid}>
         {categoryItems.map((item) => (
-          <button key={item.label} type="button" className={styles.categoryItem}>
+          <button
+            key={item.label}
+            type="button"
+            className={styles.categoryItem}
+            onClick={() => router.push(`/products?category=${item.value}`)}
+          >
             <span className="material-symbols-outlined">{item.icon}</span>
             <span>{item.label}</span>
           </button>

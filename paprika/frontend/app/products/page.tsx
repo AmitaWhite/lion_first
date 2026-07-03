@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import api from '@/lib/api';
 import ProductCard from '@/components/product/ProductCard';
@@ -22,20 +23,29 @@ const CATEGORIES = [
   { value: 'ELECTRONICS', label: '전자기기', icon: 'devices' },
   { value: 'FASHION', label: '패션', icon: 'checkroom' },
   { value: 'HOME', label: '홈/생활', icon: 'home' },
-  { value: 'KIDS', label: '유아동', icon: 'toys' },
-  { value: 'BOOKS', label: '도서', icon: 'menu_book' },
+  { value: 'KIDS', label: '유아', icon: 'toys' },
   { value: 'SPORTS', label: '스포츠', icon: 'sports_tennis' },
+  { value: 'BOOKS', label: '도서', icon: 'menu_book' },
   { value: 'HOBBIES', label: '취미', icon: 'palette' },
   { value: 'OTHERS', label: '기타', icon: 'more_horiz' },
 ];
 
 export default function ProductsPage() {
-  const [category, setCategory] = useState('');
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [category, setCategory] = useState(() => searchParams.get('category') ?? '');
   const [page, setPage] = useState(0);
   const [products, setProducts] = useState<Product[]>([]);
   const [meta, setMeta] = useState<PageMeta | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // URL의 category 파라미터가 바뀌면 반영 (홈에서 넘어올 때)
+  useEffect(() => {
+    const urlCategory = searchParams.get('category') ?? '';
+    setCategory(urlCategory);
+    setPage(0);
+  }, [searchParams]);
 
   useEffect(() => {
     let cancelled = false;
@@ -82,8 +92,12 @@ export default function ProductsPage() {
   }, [category, page]);
 
   function handleCategory(value: string) {
-    setCategory(value);
     setPage(0);
+    if (value) {
+      router.push(`/products?category=${value}`);
+    } else {
+      router.push('/products');
+    }
   }
 
   return (
