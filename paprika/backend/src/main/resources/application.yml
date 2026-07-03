@@ -14,11 +14,21 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate   # 실제 DB 구조가 엔티티와 맞는지 검증 (안 맞으면 기동 실패)
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+
+  # ── DB 마이그레이션 (Flyway) ──────────────────────────────
+  # 스키마는 Flyway가 관리. 기존에 객체가 있는 DB는 V1·V2를 실행하지 않고
+  # baseline(V2 적용됨)으로 기록만 한다.
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    validate-on-migrate: true
+    baseline-version: 2   # 기존 DB는 이미 V1(스키마)+V2(데이터) 상태 → baseline만, 새 DB는 V1·V2 실행
+    locations: classpath:db/migration
 
   # ── OAuth2 소셜 로그인 ────────────────────────────────────
   security:
@@ -85,7 +95,7 @@ cloudinary:
 
 # ── Security 개발 모드 (true = 모든 요청 허용) ───────────────
 security:
-  dev-mode: true
+  dev-mode: false
 
 server:
   port: 8080

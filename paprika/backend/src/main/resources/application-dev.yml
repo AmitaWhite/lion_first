@@ -1,16 +1,3 @@
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: false
-
-# ── Security 개발 모드 해제 ─────────────────────────────────
-security:
-  dev-mode: false
-
-oauth2:
-  redirect-uri: ${OAUTH2_REDIRECT_URI}
-
 logging:
   level:
     com.paprika: INFO
