@@ -1,8 +1,11 @@
 package com.paprika.global.image;
 
 import com.paprika.global.response.ApiResponse;
+import com.paprika.global.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,18 +34,26 @@ public class ImageController {
 
     @PostMapping("/upload")
     public ResponseEntity<ApiResponse<String>> upload(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestParam MultipartFile file,
             @RequestParam(defaultValue = "products") String folder
     ) {
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         String url = imageService.upload(file, folder);
         return ResponseEntity.ok(ApiResponse.ok(url));
     }
 
     @PostMapping("/upload/batch")
     public ResponseEntity<ApiResponse<List<String>>> uploadBatch(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestParam List<MultipartFile> files,
             @RequestParam(defaultValue = "products") String folder
     ) {
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         List<String> urls = imageService.uploadAll(files, folder);
         return ResponseEntity.ok(ApiResponse.ok(urls));
     }
