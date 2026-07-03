@@ -21,10 +21,10 @@ type OrderTab = 'all' | 'buy' | 'buying' | 'sell' | 'selling' | 'cancelled';
 
 const orderTabs: { key: OrderTab; label: string }[] = [
   { key: 'all', label: '전체' },
-  { key: 'buy', label: '구매내역' },
   { key: 'buying', label: '구매중' },
-  { key: 'sell', label: '판매내역' },
+  { key: 'buy', label: '구매내역' },
   { key: 'selling', label: '판매중' },
+  { key: 'sell', label: '판매내역' },
   { key: 'cancelled', label: '취소내역' },
 ];
 
@@ -38,8 +38,8 @@ const orderEmptyMessages: Record<OrderTab, string> = {
 };
 
 const statusLabels: Record<string, string> = {
-  PENDING: '거래 요청',
-  AGREED: '거래 확정',
+  PENDING: '예약중',
+  AGREED: '예약중',
   COMPLETED: '거래 완료',
   CANCELLED: '거래 취소',
 };
@@ -75,6 +75,7 @@ function MyPageContent() {
   const [editingReviewId, setEditingReviewId] = useState<number | null>(null);
   const [rating, setRating] = useState(5);
   const [content, setContent] = useState('');
+  const [confirmingId, setConfirmingId] = useState<number | null>(null);
 
   useEffect(() => {
     api.get('/api/v1/users/me')
@@ -190,6 +191,20 @@ function MyPageContent() {
     }
   };
 
+  const handleConfirmTransaction = async (transactionId: number) => {
+    if (!confirm('거래를 완료 처리하시겠어요?')) return;
+    setConfirmingId(transactionId);
+    try {
+      // 거래 도메인(D) 기존 엔드포인트: COMPLETED 전환 + 상품 SOLD 처리까지 같이 해줌
+      await api.post(`/api/v1/transactions/${transactionId}/complete`);
+      setTransactions((prev) => prev.filter((tx) => tx.id !== transactionId));
+    } catch {
+      alert('거래 완료 처리에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+    } finally {
+      setConfirmingId(null);
+    }
+  };
+
   const renderStatus = (t: MyPageTransaction) => {
     if (t.status === 'CANCELLED') {
       return t.cancelledBy ? cancelledByLabels[t.cancelledBy] : statusLabels.CANCELLED;
@@ -214,13 +229,26 @@ function MyPageContent() {
     }
     if (t.status === 'PENDING' || t.status === 'AGREED') {
       return (
-        <CancelTransactionButton
-          transactionId={t.id}
-          className={styles.cancelTransactionBtn}
-          deleteHandler={(cancelledId) =>
-            setTransactions((prev) => prev.filter((tx) => tx.id !== cancelledId))
-          }
-        />
+        <div className={styles.actionButtons}>
+          {/* 거래 확정(COMPLETED 전환)은 구매자만 — 판매자가 임의로 완료 처리하면 구매자가 취소할 수단이 없어짐 */}
+          {t.myRole === 'BUYER' && (
+            <button
+              type="button"
+              className={styles.confirmTransactionBtn}
+              disabled={confirmingId === t.id}
+              onClick={() => handleConfirmTransaction(t.id)}
+            >
+              {confirmingId === t.id ? '처리 중...' : '거래 확정'}
+            </button>
+          )}
+          <CancelTransactionButton
+            transactionId={t.id}
+            className={styles.cancelTransactionBtn}
+            deleteHandler={(cancelledId) =>
+              setTransactions((prev) => prev.filter((tx) => tx.id !== cancelledId))
+            }
+          />
+        </div>
       );
     }
     return null;
@@ -269,7 +297,12 @@ function MyPageContent() {
                 <div key={t.id} className={styles.card}>
                   <img src={t.imgUrl} alt="상품" className={styles.cardImg} />
                   <div className={styles.cardInfo}>
-                    <p className={styles.cardTitle}>상품 #{t.postId} (거래 #{t.id})</p>
+                    <p className={styles.cardTitle}>
+                      <Link href={`/products/${t.postId}`} className={styles.cardTitleLink}>
+                        상품 #{t.postId}
+                      </Link>
+                      {' '}(거래 #{t.id})
+                    </p>
                     <p className={styles.cardType}>
                       {t.type === 'DIRECT' ? '직거래' : '택배'} · {t.myRole === 'BUYER' ? '구매' : '판매'}
                     </p>
