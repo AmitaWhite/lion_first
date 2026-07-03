@@ -54,60 +54,45 @@ export default function Header() {
 						<span className="material-symbols-outlined">notifications</span>
 					</button>
 
-					{!loading &&
-						(user ? (
-							<div className={styles.avatarWrap} ref={dropdownRef}>
-								<button
-									className={styles.avatarBtn}
-									onClick={() => setDropdownOpen((prev) => !prev)}
-									aria-label="프로필 메뉴"
-								>
-									<img
-										src={
-											user.profileImageUrl || "/images/avatar-placeholder.svg"
-										}
-										alt={user.nickname}
-									/>
-								</button>
-								{dropdownOpen && (
-									<div className={styles.dropdown}>
-										<span className={styles.dropdownName}>{user.nickname}</span>
-										<Link
-											href="/mypage"
-											className={styles.dropdownItem}
-											onClick={() => setDropdownOpen(false)}
-										>
-											<span className="material-symbols-outlined">person</span>
-											마이페이지
-										</Link>
-										<button
-											className={styles.dropdownItem}
-											onClick={() => {
-												setDropdownOpen(false);
-												logout();
-											}}
-										>
-											<span className="material-symbols-outlined">logout</span>
-											로그아웃
-										</button>
-										<Link
-											href="/products/new"
-											className={styles.dropdownItem}
-											onClick={() => setDropdownOpen(false)}
-										>
-											<span className="material-symbols-outlined">add</span>
-											상품 등록
-										</Link>
-									</div>
-								)}
-							</div>
-						) : (
-							<Link href="/login" className={styles.loginBtn}>
-								로그인
-							</Link>
-						))}
-				</div>
-			</div>
-		</header>
-	);
+          {!loading && (
+            user ? (
+              <div className={styles.avatarWrap} ref={dropdownRef}>
+                <button
+                  className={styles.avatarBtn}
+                  onClick={() => setDropdownOpen((prev) => !prev)}
+                  aria-label="프로필 메뉴"
+                >
+                  <img
+                    src={user.profileImageUrl || '/images/avatar-placeholder.svg'}
+                    alt={user.nickname}
+                  />
+                </button>
+                {dropdownOpen && (
+                  <div className={styles.dropdown}>
+                    <span className={styles.dropdownName}>{user.nickname}</span>
+                    <span className={styles.dropdownEmail}>{user.email}</span>
+                    <Link href="/mypage" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
+                      <span className="material-symbols-outlined">person</span>
+                      마이페이지
+                    </Link>
+                    <button
+                      className={styles.dropdownItem}
+                      onClick={() => { setDropdownOpen(false); logout(); }}
+                    >
+                      <span className="material-symbols-outlined">logout</span>
+                      로그아웃
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link href="/login" className={styles.loginBtn}>
+                로그인
+              </Link>
+            )
+          )}
+        </div>
+      </div>
+    </header>
+  );
 }

@@ -155,7 +155,14 @@
   font-size: 13px;
   font-weight: 700;
   color: var(--color-on-surface-variant);
-  padding: 8px 12px 4px;
+  padding: 8px 12px 2px;
+}
+
+.dropdownEmail {
+  font-size: 11px;
+  color: var(--color-on-surface-variant);
+  opacity: 0.6;
+  padding: 0 12px 6px;
 }
 
 .dropdownItem {

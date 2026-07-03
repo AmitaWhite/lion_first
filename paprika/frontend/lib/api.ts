@@ -25,6 +25,7 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     const isAuthEndpoint = originalRequest.url?.includes('/auth/login') ||
       originalRequest.url?.includes('/auth/signup') ||
+      originalRequest.url?.includes('/auth/logout') ||
       originalRequest.url?.includes('/auth/password-reset');
 
     if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {

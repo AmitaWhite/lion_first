@@ -14,6 +14,7 @@ import styles from './page.module.css';
 import MannerTemperature from '@/components/mypage/MannerTemperature';
 import Pagination from '@/components/mypage/Pagination';
 import CancelTransactionButton from '@/components/transactions/CancelTransactionButton';
+import ConfirmTransactionButton from '@/components/transactions/ConfirmTransactionButton';
 
 const PAGE_SIZE = 10;
 
@@ -21,10 +22,10 @@ type OrderTab = 'all' | 'buy' | 'buying' | 'sell' | 'selling' | 'cancelled';
 
 const orderTabs: { key: OrderTab; label: string }[] = [
   { key: 'all', label: '전체' },
-  { key: 'buy', label: '구매내역' },
   { key: 'buying', label: '구매중' },
-  { key: 'sell', label: '판매내역' },
+  { key: 'buy', label: '구매내역' },
   { key: 'selling', label: '판매중' },
+  { key: 'sell', label: '판매내역' },
   { key: 'cancelled', label: '취소내역' },
 ];
 
@@ -38,8 +39,8 @@ const orderEmptyMessages: Record<OrderTab, string> = {
 };
 
 const statusLabels: Record<string, string> = {
-  PENDING: '거래 요청',
-  AGREED: '거래 확정',
+  PENDING: '예약중',
+  AGREED: '예약중',
   COMPLETED: '거래 완료',
   CANCELLED: '거래 취소',
 };
@@ -214,13 +215,24 @@ function MyPageContent() {
     }
     if (t.status === 'PENDING' || t.status === 'AGREED') {
       return (
-        <CancelTransactionButton
-          transactionId={t.id}
-          className={styles.cancelTransactionBtn}
-          deleteHandler={(cancelledId) =>
-            setTransactions((prev) => prev.filter((tx) => tx.id !== cancelledId))
-          }
-        />
+        <div className={styles.actionButtons}>
+          {t.myRole === 'SELLER' && (
+            <ConfirmTransactionButton
+              transactionId={t.id}
+              className={styles.confirmTransactionBtn}
+              onConfirmed={(confirmedId) =>
+                setTransactions((prev) => prev.filter((tx) => tx.id !== confirmedId))
+              }
+            />
+          )}
+          <CancelTransactionButton
+            transactionId={t.id}
+            className={styles.cancelTransactionBtn}
+            deleteHandler={(cancelledId) =>
+              setTransactions((prev) => prev.filter((tx) => tx.id !== cancelledId))
+            }
+          />
+        </div>
       );
     }
     return null;
@@ -269,7 +281,12 @@ function MyPageContent() {
                 <div key={t.id} className={styles.card}>
                   <img src={t.imgUrl} alt="상품" className={styles.cardImg} />
                   <div className={styles.cardInfo}>
-                    <p className={styles.cardTitle}>상품 #{t.postId} (거래 #{t.id})</p>
+                    <p className={styles.cardTitle}>
+                      <Link href={`/products/${t.postId}`} className={styles.cardTitleLink}>
+                        상품 #{t.postId}
+                      </Link>
+                      {' '}(거래 #{t.id})
+                    </p>
                     <p className={styles.cardType}>
                       {t.type === 'DIRECT' ? '직거래' : '택배'} · {t.myRole === 'BUYER' ? '구매' : '판매'}
                     </p>
