@@ -70,6 +70,10 @@ export default function Header() {
                       <span className="material-symbols-outlined">person</span>
                       마이페이지
                     </Link>
+                    <Link href="/products/new" className={styles.dropdownItem}	onClick={() => setDropdownOpen(false)}>
+                      <span className="material-symbols-outlined">add</span>
+                      상품 등록
+                    </Link>
                     <button
                       className={styles.dropdownItem}
                       onClick={() => { setDropdownOpen(false); logout(); }}
