@@ -65,6 +65,7 @@ export default function Header() {
                 {dropdownOpen && (
                   <div className={styles.dropdown}>
                     <span className={styles.dropdownName}>{user.nickname}</span>
+                    <span className={styles.dropdownEmail}>{user.email}</span>
                     <Link href="/mypage" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
                       <span className="material-symbols-outlined">person</span>
                       마이페이지
