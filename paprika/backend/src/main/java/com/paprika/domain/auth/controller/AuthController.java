@@ -51,6 +51,17 @@ public class AuthController {
         return ResponseEntity.ok(ApiResponse.ok(authService.getMe(userDetails.getUserId())));
     }
 
+    @PatchMapping("/password")
+    public ResponseEntity<ApiResponse<Void>> changePassword(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @Valid @RequestBody PasswordChangeRequest request) {
+        if (userDetails == null) {
+            throw new PaprikaException(ErrorCode.UNAUTHORIZED);
+        }
+        authService.changePassword(userDetails.getUserId(), request);
+        return ResponseEntity.ok(ApiResponse.ok("비밀번호가 변경되었습니다.", null));
+    }
+
     @DeleteMapping("/withdraw")
     public ResponseEntity<ApiResponse<Void>> withdraw(@AuthenticationPrincipal CustomUserDetails userDetails) {
         if (userDetails == null) {
