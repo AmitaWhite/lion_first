@@ -11,6 +11,7 @@
  */
 import type { Metadata } from "next";
 import ChatButton from "@/components/chat/ChatButton";
+import ImageGallery from "@/components/product/ImageGallery";
 import TradeButton from "@/components/transactions/TradeButton";
 import type { ApiResponse, PostApiResponse } from "@/types";
 import styles from "./page.module.css";
@@ -35,15 +36,7 @@ export default async function ProductDetailPage({
 	return (
 		<main className={styles.page}>
 			<section className={styles.gallery}>
-				<div className={styles.mainImage}>
-					{/* TODO: PostImage 연동 후 실제 이미지로 교체 */}
-					<img src="/images/product-placeholder.svg" alt={product.title} />
-				</div>
-				<div className={styles.thumbnails}>
-					<button className={styles.thumbnail} type="button">
-						<img src="/images/product-placeholder.svg" alt={product.title} />
-					</button>
-				</div>
+				<ImageGallery images={product.imgUrls ?? []} alt={product.title} />
 			</section>
 
 			<section className={styles.detailCard}>

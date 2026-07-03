@@ -4,14 +4,13 @@
  * 담당: B - 백성민
  *
  * TODO:
- *  - 이미지 업로드 (최대 10장)
  *  - 지도 API로 거래 위치 설정 (Kakao/Google Maps)
  *  - 임시 저장 기능
  */
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import api from "@/lib/api";
 
 const CATEGORIES = [
@@ -25,22 +24,70 @@ const CATEGORIES = [
 	{ value: "OTHERS", label: "기타" },
 ];
 
+const MAX_FILE_COUNT = 10;
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
 export default function NewProductPage() {
 	const router = useRouter();
+	const fileInputRef = useRef<HTMLInputElement>(null);
 	const [title, setTitle] = useState("");
 	const [category, setCategory] = useState("");
 	const [price, setPrice] = useState("");
 	const [content, setContent] = useState("");
+	const [files, setFiles] = useState<File[]>([]);
+	const [previews, setPreviews] = useState<string[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+		const selected = Array.from(e.target.files ?? []);
+		const overSize = selected.filter((f) => f.size > MAX_FILE_SIZE);
+		if (overSize.length > 0) {
+			alert(`5MB 초과 파일 ${overSize.length}개는 제외됩니다.`);
+		}
+		const valid = selected.filter((f) => f.size <= MAX_FILE_SIZE);
+		const merged = [...files, ...valid].slice(0, MAX_FILE_COUNT);
+		if (files.length + valid.length > MAX_FILE_COUNT) {
+			alert(`최대 ${MAX_FILE_COUNT}장까지만 등록됩니다.`);
+		}
+		setFiles(merged);
+		setPreviews(merged.map((f) => URL.createObjectURL(f)));
+		e.target.value = "";
+	}
+
+	function removeFile(index: number) {
+		const next = files.filter((_, i) => i !== index);
+		setFiles(next);
+		setPreviews(next.map((f) => URL.createObjectURL(f)));
+	}
 
 	async function handleSubmit() {
-		const res = await api.post("/api/v1/posts", {
-			title,
-			content,
-			price: Number(price),
-			category: category || null,
-		});
-		if (res.data.success) {
-			router.push(`/products/${res.data.data}`);
+		setIsLoading(true);
+		try {
+			let imgUrls: string[] = [];
+			if (files.length > 0) {
+				const formData = new FormData();
+				files.forEach((f) => formData.append("files", f));
+				const uploadRes = await api.post(
+					"/api/v1/images/upload/batch",
+					formData,
+					{
+						headers: { "Content-Type": "multipart/form-data" },
+					},
+				);
+				imgUrls = uploadRes.data.data;
+			}
+			const res = await api.post("/api/v1/posts", {
+				title,
+				content,
+				price: Number(price),
+				category: category || null,
+				imgUrls,
+			});
+			if (res.data.success) {
+				router.push(`/products/${res.data.data}`);
+			}
+		} finally {
+			setIsLoading(false);
 		}
 	}
 
@@ -124,33 +171,99 @@ export default function NewProductPage() {
 						/>
 					</div>
 					<div style={{ display: "grid", gap: 8 }}>
-						<label>사진 업로드</label>
-						<div
+						<label>사진 업로드 (최대 {MAX_FILE_COUNT}장 / 장당 5MB 이하)</label>
+						<input
+							ref={fileInputRef}
+							type="file"
+							multiple
+							accept="image/*"
+							onChange={handleFileChange}
+							style={{ display: "none" }}
+						/>
+						<button
+							type="button"
+							onClick={() => fileInputRef.current?.click()}
 							style={{
-								minHeight: 140,
-								borderRadius: 20,
-								border: "1px dashed var(--color-outline-variant)",
-								display: "flex",
-								alignItems: "center",
-								justifyContent: "center",
-								color: "var(--color-on-surface-variant)",
+								padding: "14px 24px",
+								borderRadius: 16,
+								background: "rgba(255, 111, 60, 0.12)",
+								backdropFilter: "blur(12px)",
+								WebkitBackdropFilter: "blur(12px)",
+								border: "1px solid rgba(255, 111, 60, 0.3)",
+								color: "var(--color-primary)",
+								fontWeight: 600,
+								cursor: "pointer",
+								boxShadow: "0 4px 16px rgba(255, 111, 60, 0.1)",
+								textAlign: "left",
 							}}
 						>
-							이미지 업로드 영역 (최대 10장)
-						</div>
+							사진 선택 ({files.length}/{MAX_FILE_COUNT})
+						</button>
+						{previews.length > 0 && (
+							<div
+								style={{
+									display: "flex",
+									gap: 8,
+									flexWrap: "wrap",
+									marginTop: 8,
+								}}
+							>
+								{previews.map((src, i) => (
+									<div key={i} style={{ position: "relative" }}>
+										<img
+											src={src}
+											alt={`미리보기 ${i + 1}`}
+											style={{
+												width: 80,
+												height: 80,
+												objectFit: "cover",
+												borderRadius: 8,
+												border: "1px solid var(--color-outline-variant)",
+											}}
+										/>
+										<button
+											type="button"
+											onClick={() => removeFile(i)}
+											style={{
+												position: "absolute",
+												top: -6,
+												right: -6,
+												width: 20,
+												height: 20,
+												borderRadius: "50%",
+												background: "rgba(0,0,0,0.6)",
+												color: "white",
+												border: "none",
+												cursor: "pointer",
+												fontSize: 12,
+												lineHeight: "20px",
+												textAlign: "center",
+												padding: 0,
+											}}
+										>
+											×
+										</button>
+									</div>
+								))}
+							</div>
+						)}
 					</div>
 					<button
 						type="button"
 						onClick={handleSubmit}
+						disabled={isLoading}
 						style={{
 							padding: "16px 20px",
 							borderRadius: 16,
-							background: "var(--color-primary)",
+							background: isLoading
+								? "var(--color-outline-variant)"
+								: "var(--color-primary)",
 							color: "white",
 							fontWeight: 700,
+							cursor: isLoading ? "not-allowed" : "pointer",
 						}}
 					>
-						상품 등록하기
+						{isLoading ? "등록 중..." : "상품 등록하기"}
 					</button>
 				</div>
 			</section>
