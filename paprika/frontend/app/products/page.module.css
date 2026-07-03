@@ -33,6 +33,43 @@
   white-space: nowrap;
 }
 
+.categoryBar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.categoryChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-outline-variant);
+  background: var(--color-surface-container-lowest);
+  color: var(--color-on-surface-variant);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.categoryChip .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.categoryChip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.categoryChip.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
 .meta {
   color: var(--color-on-surface-variant);
   font-size: 14px;

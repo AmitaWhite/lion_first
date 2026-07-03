@@ -17,7 +17,20 @@ interface PageMeta {
 
 const SIZE = 12;
 
+const CATEGORIES = [
+  { value: '', label: '전체', icon: 'apps' },
+  { value: 'ELECTRONICS', label: '전자기기', icon: 'devices' },
+  { value: 'FASHION', label: '패션', icon: 'checkroom' },
+  { value: 'HOME', label: '홈/생활', icon: 'home' },
+  { value: 'KIDS', label: '유아동', icon: 'toys' },
+  { value: 'BOOKS', label: '도서', icon: 'menu_book' },
+  { value: 'SPORTS', label: '스포츠', icon: 'sports_tennis' },
+  { value: 'HOBBIES', label: '취미', icon: 'palette' },
+  { value: 'OTHERS', label: '기타', icon: 'more_horiz' },
+];
+
 export default function ProductsPage() {
+  const [category, setCategory] = useState('');
   const [page, setPage] = useState(0);
   const [products, setProducts] = useState<Product[]>([]);
   const [meta, setMeta] = useState<PageMeta | null>(null);
@@ -28,8 +41,10 @@ export default function ProductsPage() {
     let cancelled = false;
     setLoading(true);
     setError(null);
+    const params: Record<string, any> = { page, size: SIZE, sort: 'createdAt,desc' };
+    if (category) params.category = category;
     api
-      .get('/api/v1/posts', { params: { page, size: SIZE, sort: 'createdAt,desc' } })
+      .get('/api/v1/posts', { params })
       .then((res) => {
         if (cancelled) return;
         const data = res.data.data;
@@ -64,13 +79,32 @@ export default function ProductsPage() {
         if (!cancelled) setLoading(false);
       });
     return () => { cancelled = true; };
-  }, [page]);
+  }, [category, page]);
+
+  function handleCategory(value: string) {
+    setCategory(value);
+    setPage(0);
+  }
 
   return (
     <main className={styles.container}>
       <div className={styles.header}>
         <h1>상품 목록</h1>
         <Link href="/products/new" className={styles.newBtn}>+ 상품 등록</Link>
+      </div>
+
+      <div className={styles.categoryBar}>
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat.value}
+            type="button"
+            className={`${styles.categoryChip} ${category === cat.value ? styles.active : ''}`}
+            onClick={() => handleCategory(cat.value)}
+          >
+            <span className="material-symbols-outlined">{cat.icon}</span>
+            {cat.label}
+          </button>
+        ))}
       </div>
 
       {meta && (
