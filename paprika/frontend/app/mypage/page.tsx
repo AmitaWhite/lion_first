@@ -21,10 +21,10 @@ type OrderTab = 'all' | 'buy' | 'buying' | 'sell' | 'selling' | 'cancelled';
 
 const orderTabs: { key: OrderTab; label: string }[] = [
   { key: 'all', label: '전체' },
-  { key: 'buy', label: '구매내역' },
   { key: 'buying', label: '구매중' },
-  { key: 'sell', label: '판매내역' },
+  { key: 'buy', label: '구매내역' },
   { key: 'selling', label: '판매중' },
+  { key: 'sell', label: '판매내역' },
   { key: 'cancelled', label: '취소내역' },
 ];
 
@@ -38,8 +38,8 @@ const orderEmptyMessages: Record<OrderTab, string> = {
 };
 
 const statusLabels: Record<string, string> = {
-  PENDING: '거래 요청',
-  AGREED: '거래 확정',
+  PENDING: '예약중',
+  AGREED: '예약중',
   COMPLETED: '거래 완료',
   CANCELLED: '거래 취소',
 };
@@ -75,6 +75,7 @@ function MyPageContent() {
   const [editingReviewId, setEditingReviewId] = useState<number | null>(null);
   const [rating, setRating] = useState(5);
   const [content, setContent] = useState('');
+  const [confirmingId, setConfirmingId] = useState<number | null>(null);
 
   useEffect(() => {
     api.get('/api/v1/users/me')
@@ -190,6 +191,20 @@ function MyPageContent() {
     }
   };
 
+  const handleConfirmTransaction = async (transactionId: number) => {
+    if (!confirm('거래를 완료 처리하시겠어요?')) return;
+    setConfirmingId(transactionId);
+    try {
+      // 거래 도메인(D) 기존 엔드포인트: COMPLETED 전환 + 상품 SOLD 처리까지 같이 해줌
+      await api.post(`/api/v1/transactions/${transactionId}/complete`);
+      setTransactions((prev) => prev.filter((tx) => tx.id !== transactionId));
+    } catch {
+      alert('거래 완료 처리에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+    } finally {
+      setConfirmingId(null);
+    }
+  };
+
   const renderStatus = (t: MyPageTransaction) => {
     if (t.status === 'CANCELLED') {
       return t.cancelledBy ? cancelledByLabels[t.cancelledBy] : statusLabels.CANCELLED;
@@ -214,13 +229,23 @@ function MyPageContent() {
     }
     if (t.status === 'PENDING' || t.status === 'AGREED') {
       return (
-        <CancelTransactionButton
-          transactionId={t.id}
-          className={styles.cancelTransactionBtn}
-          deleteHandler={(cancelledId) =>
-            setTransactions((prev) => prev.filter((tx) => tx.id !== cancelledId))
-          }
-        />
+        <div className={styles.actionButtons}>
+          <button
+            type="button"
+            className={styles.confirmTransactionBtn}
+            disabled={confirmingId === t.id}
+            onClick={() => handleConfirmTransaction(t.id)}
+          >
+            {confirmingId === t.id ? '처리 중...' : '거래 확정'}
+          </button>
+          <CancelTransactionButton
+            transactionId={t.id}
+            className={styles.cancelTransactionBtn}
+            deleteHandler={(cancelledId) =>
+              setTransactions((prev) => prev.filter((tx) => tx.id !== cancelledId))
+            }
+          />
+        </div>
       );
     }
     return null;
