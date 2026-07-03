@@ -165,12 +165,14 @@
   font-size: 22px;
 }
 
-.sectionHeader button {
+.sectionHeader button,
+.viewAllBtn {
   border: none;
   background: transparent;
   color: var(--color-primary);
   font-weight: 700;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .grid {

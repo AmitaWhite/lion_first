@@ -1,80 +1,11 @@
-/**
- * 홈 - 상품 목록 피드
- * 화면 참조: _5 (Paprika - Fresh Neighborhood Market)
- * 담당: B - 백성민 (상품 목록/검색), A - 민동현 (로그인 상태 연동)
- *
- * TODO:
- *  - 상품 목록 API 호출 (GET /api/v1/products)
- *  - 카테고리 필터
- *  - 검색 기능
- *  - 무한 스크롤 또는 페이지네이션
- */
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import ProductCard from '@/components/product/ProductCard';
 import type { Product } from '@/types';
+import api from '@/lib/api';
 import styles from './page.module.css';
-
-const sampleProducts: Product[] = [
-  {
-    id: 1,
-    sellerId: 10,
-    sellerNickname: 'RetroLover99',
-    title: 'Mahogany Coffee Table',
-    description: 'Rich mahogany coffee table in excellent condition.',
-    price: 120,
-    status: 'SELLING',
-    category: 'Home',
-    location: 'Brooklyn, NY',
-    imageUrls: ['/images/product-placeholder.svg'],
-    viewCount: 1200,
-    wishCount: 25,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 2,
-    sellerId: 11,
-    sellerNickname: 'KeyboardMaster',
-    title: 'Custom Mechanical Keyboard',
-    description: 'Handcrafted TKL keyboard with hot-swap switches.',
-    price: 85,
-    status: 'SELLING',
-    category: 'Electronics',
-    location: 'Jersey City, NJ',
-    imageUrls: ['/images/product-placeholder.svg'],
-    viewCount: 780,
-    wishCount: 19,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 3,
-    sellerId: 12,
-    sellerNickname: 'BikeLover',
-    title: 'Trek Mountain Bike',
-    description: 'Lightly used all-terrain bike, great for hiking trails.',
-    price: 450,
-    status: 'RESERVED',
-    category: 'Sports',
-    location: 'Queens, NY',
-    imageUrls: ['/images/product-placeholder.svg'],
-    viewCount: 430,
-    wishCount: 12,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 4,
-    sellerId: 13,
-    sellerNickname: 'PlantPeople',
-    title: 'Velvet Reading Chair',
-    description: 'Cozy accent chair in soft velvet fabric.',
-    price: 175,
-    status: 'SELLING',
-    category: 'Home',
-    location: 'Hoboken, NJ',
-    imageUrls: ['/images/product-placeholder.svg'],
-    viewCount: 980,
-    wishCount: 33,
-    createdAt: new Date().toISOString(),
-  },
-];
 
 const categoryItems = [
   { label: 'Electronics', icon: 'devices' },
@@ -88,6 +19,32 @@ const categoryItems = [
 ];
 
 export default function HomePage() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    api.get('/api/v1/posts', { params: { size: 8, sort: 'createdAt,desc' } })
+      .then((res) => {
+        const posts = res.data.data?.content ?? [];
+        const mapped: Product[] = posts.map((p: any) => ({
+          id: p.id,
+          sellerId: p.userId,
+          sellerNickname: '',
+          title: p.title,
+          description: p.content ?? '',
+          price: Number(p.currentPrice ?? 0),
+          status: p.postStatus,
+          category: p.category ?? '',
+          location: '',
+          imageUrls: p.thumbnailUrl ? [p.thumbnailUrl] : ['/images/product-placeholder.svg'],
+          viewCount: p.viewCount ?? 0,
+          wishCount: 0,
+          createdAt: p.createdAt ?? '',
+        }));
+        setProducts(mapped);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <main className={styles.container}>
       <section className={styles.hero}>
@@ -97,7 +54,7 @@ export default function HomePage() {
             The neighborhood marketplace for <span>fresh finds.</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Snap a photo, set a price, and sell to your neighbors in minutes. It’s that easy.
+            Snap a photo, set a price, and sell to your neighbors in minutes. It&apos;s that easy.
           </p>
           <div className={styles.searchCard}>
             <span className="material-symbols-outlined">search</span>
@@ -120,16 +77,14 @@ export default function HomePage() {
       <section className={styles.cardSection}>
         <div className={styles.sectionHeader}>
           <h2>New Arrivals</h2>
-          <button type="button">View All</button>
+          <Link href="/products" className={styles.viewAllBtn}>View All</Link>
         </div>
         <div className={styles.grid}>
-          {sampleProducts.map((product) => (
+          {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>
-
-
     </main>
   );
 }

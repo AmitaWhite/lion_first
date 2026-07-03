@@ -1,7 +1,102 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
-  <rect width="100%" height="100%" fill="#f0eded"/>
-  <g fill="#907065" font-family="Arial, Helvetica, sans-serif" font-size="24">
-    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">Product</text>
-    <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle">Placeholder</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- 배경 그라디언트 -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fff8f0"/>
+      <stop offset="100%" stop-color="#ede0d4"/>
+    </radialGradient>
+
+    <!-- 파프리카 메인 그라디언트 -->
+    <radialGradient id="bodyGrad" cx="38%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ff6b3d"/>
+      <stop offset="45%" stop-color="#e8251a"/>
+      <stop offset="100%" stop-color="#9e0f05"/>
+    </radialGradient>
+
+    <!-- 하이라이트 그라디언트 -->
+    <radialGradient id="glowGrad" cx="40%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 줄기 그라디언트 -->
+    <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2d6a1f"/>
+      <stop offset="50%" stop-color="#4caf35"/>
+      <stop offset="100%" stop-color="#2d6a1f"/>
+    </linearGradient>
+
+    <!-- 그림자 필터 -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#7a1a10" flood-opacity="0.28"/>
+    </filter>
+
+    <!-- 내부 그림자 느낌 -->
+    <filter id="innerShadow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="200" height="200" fill="url(#bgGrad)" rx="16"/>
+
+  <!-- 파프리카 그림자 -->
+  <ellipse cx="100" cy="162" rx="38" ry="8" fill="#7a1a10" opacity="0.18"/>
+
+  <!-- 파프리카 몸통 -->
+  <g filter="url(#shadow)">
+    <!-- 왼쪽 볼록 -->
+    <path d="
+      M100 50
+      C85 50 70 57 65 70
+      C58 85 58 102 62 116
+      C66 130 74 142 83 150
+      C90 156 96 158 100 158
+      C104 158 110 156 117 150
+      C126 142 134 130 138 116
+      C142 102 142 85 135 70
+      C130 57 115 50 100 50Z
+    " fill="url(#bodyGrad)"/>
+
+    <!-- 오른쪽 세로 골 -->
+    <path d="M116 54 C120 78 120 118 116 150" fill="none" stroke="#9e0f05" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+    <!-- 왼쪽 세로 골 -->
+    <path d="M84 54 C80 78 80 118 84 150" fill="none" stroke="#9e0f05" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+
+    <!-- 전체 하이라이트 오버레이 -->
+    <path d="
+      M100 50
+      C85 50 70 57 65 70
+      C58 85 58 102 62 116
+      C66 130 74 142 83 150
+      C90 156 96 158 100 158
+      C104 158 110 156 117 150
+      C126 142 134 130 138 116
+      C142 102 142 85 135 70
+      C130 57 115 50 100 50Z
+    " fill="url(#glowGrad)"/>
+
+    <!-- 작은 하이라이트 점 -->
+    <ellipse cx="83" cy="78" rx="9" ry="13" fill="white" opacity="0.22" transform="rotate(-18 83 78)"/>
+    <ellipse cx="79" cy="73" rx="3.5" ry="5" fill="white" opacity="0.35" transform="rotate(-18 79 73)"/>
   </g>
+
+  <!-- 꼭지 (아래 세 갈래) -->
+  <path d="M88 156 C84 165 80 172 75 176" stroke="#b02015" stroke-width="2.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+  <path d="M100 158 C100 167 99 174 99 178" stroke="#b02015" stroke-width="2.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+  <path d="M112 156 C116 165 120 172 125 176" stroke="#b02015" stroke-width="2.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+
+  <!-- 줄기 -->
+  <path d="M100 50 C99 42 97 36 96 30 C95 25 98 22 101 27 C103 31 102 40 100 50"
+        fill="url(#stemGrad)" stroke="#2d6a1f" stroke-width="0.8"/>
+
+  <!-- 잎 -->
+  <path d="M100 42 C98 34 102 24 112 22 C118 21 121 26 117 30 C112 35 105 39 100 42Z"
+        fill="#4caf35"/>
+  <path d="M100 42 C104 36 112 28 112 22" fill="none" stroke="#2d6a1f" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- 작은 잎 반대쪽 -->
+  <path d="M99 38 C97 31 91 27 86 29 C83 31 84 35 87 37 C91 39 96 39 99 38Z"
+        fill="#4caf35" opacity="0.8"/>
 </svg>
